@@ -1,3 +1,24 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DEMO - Silverwing</title>
+  
+<link rel="shortcut icon" href="https://itinerae.shop/premium/demo/22/cloud.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css?family=Kosugi+Maru:400,400italic" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://itinerae.neocities.org/premium/demo/sw.css">
+
+
+
+</head>
+
+<body>
+  
+  
+  
 <div class="wrapper">
 
 <nav class="navigation">
@@ -478,10 +499,112 @@ Please do NOT copy any codes from this demo.<br>
         <div class="footer-part">
              layout made by <a href="https://itinerae.org" target="_blank">itinerae.org</a>
         </div> 
-        <div class="footer-part"> <img src="https://itinerae.shop/premium/demo/22/clock.png" alt=""> <span id="visitor-clock">22:36:15</span></div>
+        <div class="footer-part"> <img src="https://itinerae.shop/premium/demo/22/clock.png" alt=""> <span id="visitor-clock">22:37:16</span></div>
         <div class="footer-part">This layout is responsive.</div>
     </footer> 
     
     
 
-</div>
+</div> <!-- .wrapper ends. -->
+
+
+
+<script>
+/* footer clock */
+function updateVisitorClock() {
+    const clock = document.getElementById("visitor-clock");
+    if (!clock) return;
+
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, "0");
+    const mm = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+
+    clock.textContent = `${hh}:${mm}:${ss}`;
+}
+
+updateVisitorClock();
+setInterval(updateVisitorClock, 1000);
+
+
+/* calendar */
+const calendarMonth = document.getElementById("calendar-month");
+const calendarDays = document.getElementById("calendar-days");
+const calendarPrev = document.getElementById("calendar-prev");
+const calendarNext = document.getElementById("calendar-next");
+
+const today = new Date();
+let calendarView = new Date(today.getFullYear(), today.getMonth(), 1);
+
+function renderCalendar() {
+    if (!calendarMonth || !calendarDays) return;
+
+    const year = calendarView.getFullYear();
+    const month = calendarView.getMonth();
+    const currentDate = new Date();
+
+    calendarMonth.textContent = calendarView.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric"
+    });
+
+    calendarDays.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const mondayFirstOffset = (firstDay.getDay() + 6) % 7;
+
+    for (let i = 0; i < mondayFirstOffset; i++) {
+        const empty = document.createElement("span");
+        empty.className = "calendar-day is-empty";
+        empty.textContent = "0";
+        calendarDays.appendChild(empty);
+    }
+
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const cell = document.createElement("span");
+        cell.className = "calendar-day";
+        cell.textContent = day;
+
+        if (
+            day === currentDate.getDate() &&
+            month === currentDate.getMonth() &&
+            year === currentDate.getFullYear()
+        ) {
+            cell.classList.add("is-today");
+            cell.setAttribute("aria-current", "date");
+        }
+
+        calendarDays.appendChild(cell);
+    }
+}
+
+if (calendarPrev) {
+    calendarPrev.addEventListener("click", () => {
+        calendarView = new Date(
+            calendarView.getFullYear(),
+            calendarView.getMonth() - 1,
+            1
+        );
+        renderCalendar();
+    });
+}
+
+if (calendarNext) {
+    calendarNext.addEventListener("click", () => {
+        calendarView = new Date(
+            calendarView.getFullYear(),
+            calendarView.getMonth() + 1,
+            1
+        );
+        renderCalendar();
+    });
+}
+
+renderCalendar();
+</script>
+  
+  
+
+
+</body></html>
