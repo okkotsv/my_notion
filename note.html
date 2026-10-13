@@ -3,40 +3,6 @@
 
 
   <script type="text/javascript">
-    // <![CDATA[
-    var sparks = 3; // how many sparks per clicksplosion
-    var speed = 25; // how fast - smaller is faster
-    var bangs = 3; // how many can be launched simultaneously (note that using too many can slow the script down)
-    var colours = new Array('#b38a5d');
-    //                     blue    red     green   purple  cyan    orange  pink
-    /****************************
-     *   Clicksplosion Effect    *
-     *(c)2012-3 mf2fm web-design *
-     *  http://www.mf2fm.com/rv  *
-     * DON'T EDIT BELOW THIS BOX *
-     ****************************/
-    var intensity = new Array();
-    var Xpos = new Array();
-    var Ypos = new Array();
-    var dX = new Array();
-    var dY = new Array();
-    var stars = new Array();
-    var decay = new Array();
-    var timers = new Array();
-    var swide = 800;
-    var shigh = 600;
-    var sleft = sdown = 0;
-    var count = 0;
-
-    function addLoadEvent(funky) {
-      var oldonload = window.onload;
-      if (typeof(oldonload) != 'function') window.onload = funky;
-      else window.onload = function() {
-        if (oldonload) oldonload();
-        funky();
-      }
-    }
-    addLoadEvent(clicksplode);
 
     function clicksplode() {
       if (document.getElementById) {
