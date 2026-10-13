@@ -38,7 +38,7 @@
         tb8_sp = tb8_delay;
       }
       if (tb8_currMsg == tb8_messages.length) {
-        if ((tb8_rptType == 'finite') && (tb8_counter == tb8_rptNbr)) {
+        if ((tb8_rptType == 'infinite') && (tb8_counter == tb8_rptNbr)) {
           clearTimeout(tb8_TID);
           return;
         }
