@@ -1,1418 +1,824 @@
 <!DOCTYPE html>
-<html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>itinerae : vaporeon</title>
-
-    
-    <style type="text/css">
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
-
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
+<html><head><style="text/css">
+  * {
+    cursor: url(https://64.media.tumblr.com/tumblr_m2umkqvNUT1qfamg6.gif), auto !important;
+  }
+</head><body><a href="https://www.cursors-4u.com/cursor/2011/10/19/tiny-hand-bow-red-heart.html" target="_blank" title="Tiny Hand Bow Red Heart"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Tiny Hand Bow Red Heart" style="position:absolute; top: 0px; right: 0px;"></a>
 
 
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
 
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
+  <script="text/javascript">
+    // <![CDATA[
+    var sparks = 3; // how many sparks per clicksplosion
+    var speed = 25; // how fast - smaller is faster
+    var bangs = 3; // how many can be launched simultaneously (note that using too many can slow the script down)
+    var colours = new Array('#b38a5d');
+    //                     blue    red     green   purple  cyan    orange  pink
+    /****************************
+     *   Clicksplosion Effect    *
+     *(c)2012-3 mf2fm web-design *
+     *  http://www.mf2fm.com/rv  *
+     * DON'T EDIT BELOW THIS BOX *
+     ****************************/
+    var intensity = new Array();
+    var Xpos = new Array();
+    var Ypos = new Array();
+    var dX = new Array();
+    var dY = new Array();
+    var stars = new Array();
+    var decay = new Array();
+    var timers = new Array();
+    var swide = 800;
+    var shigh = 600;
+    var sleft = sdown = 0;
+    var count = 0;
 
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
+    function addLoadEvent(funky) {
+      var oldonload = window.onload;
+      if (typeof(oldonload) != 'function') window.onload = funky;
+      else window.onload = function() {
+        if (oldonload) oldonload();
+        funky();
+      }
+    }
+    addLoadEvent(clicksplode);
 
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
+    function clicksplode() {
+      if (document.getElementById) {
+        var i, j;
+        window.onscroll = set_scroll;
+        window.onresize = set_width;
+        document.onclick = eksplode;
+        set_width();
+        set_scroll();
+        for (i = 0; i < bangs; i++)
+          for (j = sparks * i; j < sparks + sparks * i; j++) {
+            stars[j] = createDiv('+', 13);
+            document.body.appendChild(stars[j]);
+          }
+      }
+    }
 
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
+    function createDiv(char, size) {
+      var div, sty;
+      div = document.createElement('div');
+      sty = div.style;
+      sty.font = size + 'px monospace';
+      sty.position = 'absolute';
+      sty.backgroundColor = 'transparent';
+      sty.visibility = 'hidden';
+      sty.zIndex = '101';
+      div.appendChild(document.createTextNode(char));
+      return (div);
+    }
 
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
+    function bang(N) {
+      var i, Z, A = 0;
+      for (i = sparks * N; i < sparks * (N + 1); i++) {
+        if (decay[i]) {
+          Z = stars[i].style;
+          Xpos[i] += dX[i];
+          Ypos[i] += (dY[i] += 1.25 / intensity[N]);
+          if (Xpos[i] >= swide || Xpos[i] < 0 || Ypos[i] >= shigh + sdown || Ypos[i] < 0) decay[i] = 1;
+          else {
+            Z.left = Xpos[i] + 'px';
+            Z.top = Ypos[i] + 'px';
+          }
+          if (decay[i] == 15) Z.fontSize = '3px';
+          else if (decay[i] == 7) Z.fontSize = '2px';
+          else if (decay[i] == 1) Z.visibility = 'hidden';
+          decay[i]--;
+        } else A++;
+      }
+      if (A != sparks) timers[N] = setTimeout('bang(' + N + ')', speed);
+    }
 
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
+    function eksplode(e) {
+      var x, y, i, M, Z, N;
+      set_scroll();
+      y = (e) ? e.pageY : event.y + sdown;
+      x = (e) ? e.pageX : event.x + sleft;
+      N = ++count % bangs;
+      M = Math.floor(Math.random() * 3 * colours.length);
+      intensity[N] = 5 + Math.random() * 4;
+      for (i = N * sparks; i < (N + 1) * sparks; i++) {
+        Xpos[i] = x;
+        Ypos[i] = y - 5;
+        dY[i] = (Math.random() - 0.5) * intensity[N];
+        dX[i] = (Math.random() - 0.5) * (intensity[N] - Math.abs(dY[i])) * 1.25;
+        decay[i] = 16 + Math.floor(Math.random() * 16);
+        Z = stars[i].style;
+        if (M < colours.length) Z.color = colours[i % 2 ? count % colours.length : M];
+        else if (M < 2 * colours.length) Z.color = colours[count % colours.length];
+        else Z.color = colours[i % colours.length];
+        Z.fontSize = '10px';
+        Z.visibility = 'visible';
+      }
+      clearTimeout(timers[N]);
+      bang(N);
+    }
 
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
+    function set_width() {
+      var sw_min = 999999;
+      var sh_min = 999999;
+      if (document.documentElement && document.documentElement.clientWidth) {
+        if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
+        if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
+      }
+      if (typeof(self.innerWidth) == 'number' && self.innerWidth) {
+        if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
+        if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
+      }
+      if (document.body.clientWidth) {
+        if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min) sw_min = document.body.clientWidth;
+        if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min) sh_min = document.body.clientHeight;
+      }
+      if (sw_min == 999999 || sh_min == 999999) {
+        sw_min = 800;
+        sh_min = 600;
+      }
+      swide = sw_min - 7;
+      shigh = sh_min - 7;
+    }
 
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-      
-      textarea {font:10px calibri;letter-spacing:1px;color:#888;}
+    function set_scroll() {
+      if (typeof(self.pageYOffset) == 'number') {
+        sdown = self.pageYOffset;
+        sleft = self.pageXOffset;
+      } else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+        sdown = document.body.scrollTop;
+        sleft = document.body.scrollLeft;
+      } else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+        sleft = document.documentElement.scrollLeft;
+        sdown = document.documentElement.scrollTop;
+      } else {
+        sdown = 0;
+        sleft = 0;
+      }
+    }
+    // ]]>
+  </script>
 
-    
-    
-    </style>
-    
-    
-    
-   
-  </head>
-  
-  
-  
-  
- 
-  <body>
-    
-    
-    <br><br><br>
-    
-    
-    <div id="wrapper">
-      
-      
-       <div id="navigationwrap">
-        <div id="navigation">
-          <center><a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a>  </center>
-          
-        </div>
-        </div>
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        <div id="contentwrap">
-        <div id="content">
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> the code</div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-          <center>
-          
-          <textarea rows="5" cols="50"> &lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;itinerae : vaporeon&lt;/title&gt;
-
-    
-    &lt;style type="text/css"&gt;
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
-
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>b l u e c ae t â™¡</title>
+  <link rel="shortcut icon" href="https://cutekawaiiresources.wordpress.com/wp-content/uploads/2018/03/coffee-14.gif?w=20" type="image/x-icon">
+  <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+  <link href="/aboutme.css" rel="stylesheet" type="text/css" media="all">
 
 
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
 
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
 
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
+  <script>
+    NekoType = "moka"
+  </script>
+  <h1 id="nl">
+    <script src="https://webneko.net/n20171213.js"></script><style type="text/css">#nl{display:none;}</style><a href="https://webneko.net">Neko</a>
+  </h1>
 
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
+  <div class="maincontainer">
 
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
+    <img src="https://files.catbox.moe/z9vzla.jpeg" class="pfp" alt="cat picture">
 
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
-
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
-
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
-
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-
-    
-    
-    &lt;/style&gt;
-    
-    
-    
-   
-  &lt;/head&gt;
-  
-  
-  
-  
- 
-  &lt;body&gt;
-    
-    
-    &lt;br&gt;&lt;br&gt;&lt;br&gt;
-    
-    
-    &lt;div id="wrapper"&gt;
-      
-      
-       &lt;div id="navigationwrap"&gt;
-        &lt;div id="navigation"&gt;
-          &lt;center&gt;&lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt;  &lt;/center&gt;
-          
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        &lt;div id="contentwrap"&gt;
-        &lt;div id="content"&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-       &lt;div id="rightcolumnwrap"&gt;
-        &lt;div id="rightcolumn"&gt;
-          
-&lt;center&gt;
-&lt;img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x"&gt;
-&lt;/center&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-           
-&lt;b&gt;Bold text&lt;/b&gt;   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;         
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title &lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-                   
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-&lt;/div&gt;
-&lt;/div&gt;
-      
-      
-      
-      
-      
-        &lt;div id="footerwrap"&gt;
-        &lt;div id="footer"&gt;
-          Layout: &lt;a href="http://itinerae.neocities.org" target="_blank"&gt;Itinerae&lt;/a&gt; Pixels: &lt;a href="https://foollovers.com/" target="_blank"&gt;Fool Lovers&lt;/a&gt; Lace border: &lt;a href="https://pastebin.com/1s0bztqb" target="_blank"&gt;Loveberry&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-    &lt;/div&gt;
- 
-  &lt;/body&gt;
-&lt;/html&gt;
-            
-            
-            
-          </textarea>
-          
-          
-          </center>
-          
-          <br>
-          
-          
-          
-          
-          
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-        </div>
-        </div>
-      
-      
-      
-       <div id="rightcolumnwrap">
-        <div id="rightcolumn">
-          
-<center>
-<img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x">
-</center><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-           
-<b>Bold text</b>   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>         
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title </div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-                   
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-</div>
-</div>
-      
-      
-      
-      
-      
-        <div id="footerwrap">
-        <div id="footer">
-          Layout: <a href="http://itinerae.neocities.org" target="_blank">Itinerae</a> Pixels: <a href="https://foollovers.com/" target="_blank">Fool Lovers</a> Lace border: <a href="https://pastebin.com/1s0bztqb" target="_blank">Loveberry</a>
-        </div>
-        </div>
-      
-      
-      
+    <div class="rndmbox">
     </div>
- 
-  
 
-            </body></html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>itinerae : vaporeon</title>
+    <div class="textboxborder">
+      <div class="textbox">
 
-    
-    <style type="text/css">
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
+      <div class="welcome">
+        Welcome ...
+      </div>
 
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
+      <div class="text">
 
+        ... my name is eli. I'm currently 18 years old and finishing school. I've gotten into coding in around 2021, when myspace started resurfacing again. Around that time is when i started this webpage, for fun. After forgetting about it for a year i started working on it again and this is where i am at right now. When i'm not on here, i'm probably studying or doing something creative like drawing, crocheting or just crafts.
 
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
-
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
-
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
-
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
-
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
-
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
-
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
-
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
-
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-      
-      textarea {font:10px calibri;letter-spacing:1px;color:#888;}
-
-    
-    
-    </style>
-    
-    
-    
-   
-  </head>
-<body>
-    
-    
-    <br><br><br>
-    
-    
-    <div id="wrapper">
-      
-      
-       <div id="navigationwrap">
-        <div id="navigation">
-          <center><a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a>  </center>
+        
+        <div class="text02" tabindex="1">
+          me
+        </div>
+        
+          <div class="text03" tabindex="2">
+          fav artists
+        </div>
+          
+        <div class="mebox">
+          <img src="https://bluecaet.neocities.org/resources02/sheher.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/piesces.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/cats.png" class="meico" alt="music notes divider">
           
         </div>
+        
+        <div class="favartistsbox">
+          I like listening to many different genres of music. My current favourite artists are HER MIN, pinkpantheress and faye webster. Though, i also like artists like MF DOOM and nujabes. I'm also into kpop, specifically txt, enhypen, loona and f(x).
         </div>
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        <div id="contentwrap">
-        <div id="content">
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> the code</div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-          <center>
-          
-          <textarea rows="5" cols="50"> &lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;itinerae : vaporeon&lt;/title&gt;
+        
 
-    
-    &lt;style type="text/css"&gt;
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
+        </div></div>
 
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
+      <img src="https://bluecaet.neocities.org/resources02/musicnotesdiv.png" class="divider" alt="music notes divider">
 
+      <p><a href="https://spacehey.com/profile?id=1186420" class="button1">
+          spacehey
+        </a> </p>
 
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
+      <p><a href="https://de.pinterest.com/bluecaet/" class="button2">
+          pinterest
+        </a> </p>
 
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
-
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
-
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
-
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
-
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
-
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
-
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
-
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-
-    
-    
-    &lt;/style&gt;
-    
-    
-    
-   
-  &lt;/head&gt;
-  
-  
-  
-  
- 
-  &lt;body&gt;
-    
-    
-    &lt;br&gt;&lt;br&gt;&lt;br&gt;
-    
-    
-    &lt;div id="wrapper"&gt;
-      
-      
-       &lt;div id="navigationwrap"&gt;
-        &lt;div id="navigation"&gt;
-          &lt;center&gt;&lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt;  &lt;/center&gt;
-          
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        &lt;div id="contentwrap"&gt;
-        &lt;div id="content"&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-       &lt;div id="rightcolumnwrap"&gt;
-        &lt;div id="rightcolumn"&gt;
-          
-&lt;center&gt;
-&lt;img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x"&gt;
-&lt;/center&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-           
-&lt;b&gt;Bold text&lt;/b&gt;   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;         
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title &lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-                   
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-&lt;/div&gt;
-&lt;/div&gt;
-      
-      
-      
-      
-      
-        &lt;div id="footerwrap"&gt;
-        &lt;div id="footer"&gt;
-          Layout: &lt;a href="http://itinerae.neocities.org" target="_blank"&gt;Itinerae&lt;/a&gt; Pixels: &lt;a href="https://foollovers.com/" target="_blank"&gt;Fool Lovers&lt;/a&gt; Lace border: &lt;a href="https://pastebin.com/1s0bztqb" target="_blank"&gt;Loveberry&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-    &lt;/div&gt;
- 
-  &lt;/body&gt;
-&lt;/html&gt;
-            
-            
-            
-          </textarea>
-          
-          
-          </center>
-          
-          <br>
-          
-          
-          
-          
-          
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-        </div>
-        </div>
-      
-      
-      
-       <div id="rightcolumnwrap">
-        <div id="rightcolumn">
-          
-<center>
-<img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x">
-</center><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-           
-<b>Bold text</b>   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>         
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title </div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-                   
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-</div>
-</div>
-      
-      
-      
-      
-      
-        <div id="footerwrap">
-        <div id="footer">
-          Layout: <a href="http://itinerae.neocities.org" target="_blank">Itinerae</a> Pixels: <a href="https://foollovers.com/" target="_blank">Fool Lovers</a> Lace border: <a href="https://pastebin.com/1s0bztqb" target="_blank">Loveberry</a>
-        </div>
-        </div>
-      
-      
-      
     </div>
- 
-  
 
-            </body>
-<html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>itinerae : vaporeon</title>
-
-    
-    <style type="text/css">
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
-
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
-
-
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
-
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
-
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
-
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
-
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
-
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
-
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
-
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
-
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-      
-      textarea {font:10px calibri;letter-spacing:1px;color:#888;}
-
-    
-    
-    </style>
-    
-    
-    
-   
-  </head>
-  
-  
-  
-  
- 
-  <body>
-    
-    
-    <br><br><br>
-    
-    
-    <div id="wrapper">
-      
-      
-       <div id="navigationwrap">
-        <div id="navigation">
-          <center><a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a> <a href="">link</a>  </center>
-          
-        </div>
-        </div>
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        <div id="contentwrap">
-        <div id="content">
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> the code</div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-          <center>
-          
-          <textarea rows="5" cols="50"> &lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;itinerae : vaporeon&lt;/title&gt;
-
-    
-    &lt;style type="text/css"&gt;
-      
-      
-    body {
-    background:#E7EDF2 url(https://64.media.tumblr.com/f6900502ff0d8d97b7777f719f676e8e/46d71838c2ab60b3-76/s75x75_c1/a15417732f9baaabc45f7960a34bbff9cf8eceec.gifv) fixed;
-    font-family:calibri, Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    text-shadow: 0px 0px 1px #b3b3b3;
-    color:#888;
-    letter-spacing: 1px;}
-
-     
-    #wrapper {
-    margin: 0 auto;
-    width: 570px;}
-
-
-      
-    #navigationwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;}
-
-#navigation {
-    height: 20px;
-    line-height:20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;
-    padding:5px;
-}
-      
-#navigation a:link, a:visited, a:active {font:11px monospace;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-      
-  #navigation a:hover {background:#fff;
-  text-transform:uppercase;line-height:20px;
-  padding:4px; letter-spacing:1px;margin-right:10px;}
-  
-           
-
-#contentwrap {
-    width: 400px;
-    float: left;
-    margin: 0 auto;}
-
-#content {
-    background: #fff;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    margin: 5px;padding:5px;}
-
-#rightcolumnwrap {
-    width: 170px;
-    float: left;
-    margin: 0 auto;}
-
-#rightcolumn {
-background: #FFF;
-border-width:7px;
-border-style:solid;
-border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-margin: 5px;padding:5px;}
-
-#footerwrap {
-    width: 570px;
-    float: left;
-    margin: 0 auto;
-    clear: both;}
-
-#footer {
-    height: 20px;
-    background: #FFF;
-    border-width:7px;
-    border-style:solid;
-    border-image: url("https://64.media.tumblr.com/6f0c2efb2b0902a5907c60c9d1dcad9e/de283233162c752d-89/s75x75_c1/62ee23af1906bc552dbea259f32e0801263b4635.pnj") 8 fill round;
-    line-height:20px;
-    margin: 5px;
-    text-align:center;}    
-      
-      
-         
-      
-::-webkit-scrollbar-thumb {
-background-color: #fff;  
-border-radius: 0px;
-border:1px solid #999;}
-::-webkit-scrollbar {
-width: 7px; height: 4px; 
-background: transparent;}
-
-   
-.title {background:#E9F9FF;text-transform:uppercase;font:10px monospace; letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;}
-.title2 {background:#E9F9FF;text-transform:uppercase;letter-spacing:3px;color:#555;padding:2px;padding-left:4px;margin-bottom:4px;font:10px monospace;line-height:10px;}
-    
-b {color:#64B0DB;}
-    	
-a:link, a:visited, a:active { 
-color:#64B0DB;text-decoration:none;}
-a:hover {
-color:#999;}
-
-    
-    
-    &lt;/style&gt;
-    
-    
-    
-   
-  &lt;/head&gt;
-  
-  
-  
-  
- 
-  &lt;body&gt;
-    
-    
-    &lt;br&gt;&lt;br&gt;&lt;br&gt;
-    
-    
-    &lt;div id="wrapper"&gt;
-      
-      
-       &lt;div id="navigationwrap"&gt;
-        &lt;div id="navigation"&gt;
-          &lt;center&gt;&lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt; &lt;a href=""&gt;link&lt;/a&gt;  &lt;/center&gt;
-          
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-       
-      
-      
-       
-      
-      
-      
-       
-      
-      
-      
-        &lt;div id="contentwrap"&gt;
-        &lt;div id="content"&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; 
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title2"&gt; &lt;img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"&gt; title&lt;/div&gt;
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. &lt;br&gt;&lt;br&gt; Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. &lt;br&gt;&lt;br&gt;In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. &lt;br&gt;&lt;br&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-       &lt;div id="rightcolumnwrap"&gt;
-        &lt;div id="rightcolumn"&gt;
-          
-&lt;center&gt;
-&lt;img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x"&gt;
-&lt;/center&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-           
-&lt;b&gt;Bold text&lt;/b&gt;   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;         
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title &lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-                   
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-&lt;br&gt;&lt;br&gt;
-          
-&lt;div class="title"&gt;&lt;img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"&gt; title&lt;/div&gt;
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-&lt;/div&gt;
-&lt;/div&gt;
-      
-      
-      
-      
-      
-        &lt;div id="footerwrap"&gt;
-        &lt;div id="footer"&gt;
-          Layout: &lt;a href="http://itinerae.neocities.org" target="_blank"&gt;Itinerae&lt;/a&gt; Pixels: &lt;a href="https://foollovers.com/" target="_blank"&gt;Fool Lovers&lt;/a&gt; Lace border: &lt;a href="https://pastebin.com/1s0bztqb" target="_blank"&gt;Loveberry&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;/div&gt;
-      
-      
-      
-    &lt;/div&gt;
- 
-  &lt;/body&gt;
-&lt;/html&gt;
-            
-            
-            
-          </textarea>
-          
-          
-          </center>
-          
-          <br>
-          
-          
-          
-          
-          
-          
-Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> 
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>
-          
-In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Hello hello hello. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-          
-<div class="title2"> <img src="https://64.media.tumblr.com/0b91ec3f6bd8e50404dc513ffbdf5821/014d6f73835b6e87-d3/s75x75_c1/f19c167835beae789c67e6721b3492325131958c.gifv"> title</div>
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. <br><br> Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. <br><br>In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. <br><br>
-        </div>
-        </div>
-      
-      
-      
-       <div id="rightcolumnwrap">
-        <div id="rightcolumn">
-          
-<center>
-<img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s250x400/5907611d50bf7d0892fbd933163939239f8fdfa9.gifv" width="100" alt="x">
-</center><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-           
-<b>Bold text</b>   
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>         
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title </div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-                   
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-<br><br>
-          
-<div class="title"><img src="https://64.media.tumblr.com/171c295df37def8ea5bd3774fa3f2471/014d6f73835b6e87-e8/s75x75_c1/f2e8d21f39d3532d9cd06c05172782950d2625ad.gifv"> title</div>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          
-</div>
-</div>
-      
-      
-      
-      
-      
-        <div id="footerwrap">
-        <div id="footer">
-          Layout: <a href="http://itinerae.neocities.org" target="_blank">Itinerae</a> Pixels: <a href="https://foollovers.com/" target="_blank">Fool Lovers</a> Lace border: <a href="https://pastebin.com/1s0bztqb" target="_blank">Loveberry</a>
-        </div>
-        </div>
-      
-      
-      
+    <div class="rndmbox2">
     </div>
- 
-  
 
-            </body></html>
+    <div class="blinkiesboxborder">
+    <div class="blinkiesbox">
+
+      <div class="blinkiescon">
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://bluecaet.neocities.org/resources/rilakkumabadge.gif" style="margin-top: 10px; margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge7.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge2.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge3.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://cyber.dabamos.de/88x31/nec.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://capstasher.neocities.org/88x31collection-page1"><img class="clique" alt="i love rilakkuma" src="https://capstasher.neocities.org/88x31Buttons/ao3gif.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://neocities.org/"><img class="clique" alt="i love rilakkuma" src="https://hellosailor.neocities.org/microbars/neocities%20page%20stamp.png" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="i love lain" src="https://64.media.tumblr.com/57fd76e3c7a239e098ea27c7029a0fee/421f629cb5164425-4b/s100x200/f7d82a99df3734172fd6e41b0015c862bd4d3d6f.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="palestine" src="https://64.media.tumblr.com/2d7c26f7a542b580602a220e5a5a1e29/c1444e7ecc640155-a9/s100x200/d323b29bc54c3710b48ffc7929fa68e34df42adb.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+      </div>
+      </div>
+    </div>
+
+    <a href="https://bluecaet.neocities.org/home"><img class="home" alt="home" src="https://bluecaet.neocities.org/resources02/houseico.png" style="filter: drop-shadow(2px 0px 0px white)
+      drop-shadow(-2px 0px 0px white)
+      drop-shadow(0px 2px 0px white)
+      drop-shadow(0px -2px 0px white)
+      "></a>
+
+  </div>
+
+
+<div><div id="layerNeko0" style="position: absolute; clip: rect(0px, 32px, 32px, 0px); visibility: visible; left: 0px; top: 0px; z-index: 1000;"><a ondblclick="document.location.href=&quot;https://webneko.net&quot;" href="https://webneko.net" onmouseover="aNekos[0].message();return true" onmouseout="window.status = &quot;&quot;" onclick="aNekos[0].active = !aNekos[0].active;return false;" onfocus="this.blur()"><img border="0" name="imageNeko0" src="https://webneko.net/moka/sleep2.gif"></a></div></div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 501.328385px; top: 636.16312px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 605.192979px; top: 442.24281px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 600.483861px; top: 514.226802px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 557.241729px; top: 626.936308px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 543.492606px; top: 556.000877px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 551.191787px; top: 675.11324px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 513.646774px; top: 506.896273px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 645.733638px; top: 468.807622px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 629.130999px; top: 528.516236px;">+</div></body></html>
+<head><style type="text/css">
+  * {
+    cursor: url(https://64.media.tumblr.com/tumblr_m2umkqvNUT1qfamg6.gif), auto !important;
+  }
+</style></head>
+<body><a href="https://www.cursors-4u.com/cursor/2011/10/19/tiny-hand-bow-red-heart.html" target="_blank" title="Tiny Hand Bow Red Heart"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Tiny Hand Bow Red Heart" style="position:absolute; top: 0px; right: 0px;"></a>
+
+
+
+  <script type="text/javascript">
+    // <![CDATA[
+    var sparks = 3; // how many sparks per clicksplosion
+    var speed = 25; // how fast - smaller is faster
+    var bangs = 3; // how many can be launched simultaneously (note that using too many can slow the script down)
+    var colours = new Array('#b38a5d');
+    //                     blue    red     green   purple  cyan    orange  pink
+    /****************************
+     *   Clicksplosion Effect    *
+     *(c)2012-3 mf2fm web-design *
+     *  http://www.mf2fm.com/rv  *
+     * DON'T EDIT BELOW THIS BOX *
+     ****************************/
+    var intensity = new Array();
+    var Xpos = new Array();
+    var Ypos = new Array();
+    var dX = new Array();
+    var dY = new Array();
+    var stars = new Array();
+    var decay = new Array();
+    var timers = new Array();
+    var swide = 800;
+    var shigh = 600;
+    var sleft = sdown = 0;
+    var count = 0;
+
+    function addLoadEvent(funky) {
+      var oldonload = window.onload;
+      if (typeof(oldonload) != 'function') window.onload = funky;
+      else window.onload = function() {
+        if (oldonload) oldonload();
+        funky();
+      }
+    }
+    addLoadEvent(clicksplode);
+
+    function clicksplode() {
+      if (document.getElementById) {
+        var i, j;
+        window.onscroll = set_scroll;
+        window.onresize = set_width;
+        document.onclick = eksplode;
+        set_width();
+        set_scroll();
+        for (i = 0; i < bangs; i++)
+          for (j = sparks * i; j < sparks + sparks * i; j++) {
+            stars[j] = createDiv('+', 13);
+            document.body.appendChild(stars[j]);
+          }
+      }
+    }
+
+    function createDiv(char, size) {
+      var div, sty;
+      div = document.createElement('div');
+      sty = div.style;
+      sty.font = size + 'px monospace';
+      sty.position = 'absolute';
+      sty.backgroundColor = 'transparent';
+      sty.visibility = 'hidden';
+      sty.zIndex = '101';
+      div.appendChild(document.createTextNode(char));
+      return (div);
+    }
+
+    function bang(N) {
+      var i, Z, A = 0;
+      for (i = sparks * N; i < sparks * (N + 1); i++) {
+        if (decay[i]) {
+          Z = stars[i].style;
+          Xpos[i] += dX[i];
+          Ypos[i] += (dY[i] += 1.25 / intensity[N]);
+          if (Xpos[i] >= swide || Xpos[i] < 0 || Ypos[i] >= shigh + sdown || Ypos[i] < 0) decay[i] = 1;
+          else {
+            Z.left = Xpos[i] + 'px';
+            Z.top = Ypos[i] + 'px';
+          }
+          if (decay[i] == 15) Z.fontSize = '3px';
+          else if (decay[i] == 7) Z.fontSize = '2px';
+          else if (decay[i] == 1) Z.visibility = 'hidden';
+          decay[i]--;
+        } else A++;
+      }
+      if (A != sparks) timers[N] = setTimeout('bang(' + N + ')', speed);
+    }
+
+    function eksplode(e) {
+      var x, y, i, M, Z, N;
+      set_scroll();
+      y = (e) ? e.pageY : event.y + sdown;
+      x = (e) ? e.pageX : event.x + sleft;
+      N = ++count % bangs;
+      M = Math.floor(Math.random() * 3 * colours.length);
+      intensity[N] = 5 + Math.random() * 4;
+      for (i = N * sparks; i < (N + 1) * sparks; i++) {
+        Xpos[i] = x;
+        Ypos[i] = y - 5;
+        dY[i] = (Math.random() - 0.5) * intensity[N];
+        dX[i] = (Math.random() - 0.5) * (intensity[N] - Math.abs(dY[i])) * 1.25;
+        decay[i] = 16 + Math.floor(Math.random() * 16);
+        Z = stars[i].style;
+        if (M < colours.length) Z.color = colours[i % 2 ? count % colours.length : M];
+        else if (M < 2 * colours.length) Z.color = colours[count % colours.length];
+        else Z.color = colours[i % colours.length];
+        Z.fontSize = '10px';
+        Z.visibility = 'visible';
+      }
+      clearTimeout(timers[N]);
+      bang(N);
+    }
+
+    function set_width() {
+      var sw_min = 999999;
+      var sh_min = 999999;
+      if (document.documentElement && document.documentElement.clientWidth) {
+        if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
+        if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
+      }
+      if (typeof(self.innerWidth) == 'number' && self.innerWidth) {
+        if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
+        if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
+      }
+      if (document.body.clientWidth) {
+        if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min) sw_min = document.body.clientWidth;
+        if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min) sh_min = document.body.clientHeight;
+      }
+      if (sw_min == 999999 || sh_min == 999999) {
+        sw_min = 800;
+        sh_min = 600;
+      }
+      swide = sw_min - 7;
+      shigh = sh_min - 7;
+    }
+
+    function set_scroll() {
+      if (typeof(self.pageYOffset) == 'number') {
+        sdown = self.pageYOffset;
+        sleft = self.pageXOffset;
+      } else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+        sdown = document.body.scrollTop;
+        sleft = document.body.scrollLeft;
+      } else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+        sleft = document.documentElement.scrollLeft;
+        sdown = document.documentElement.scrollTop;
+      } else {
+        sdown = 0;
+        sleft = 0;
+      }
+    }
+    // ]]>
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>b l u e c ae t â™¡</title>
+  <link rel="shortcut icon" href="https://cutekawaiiresources.wordpress.com/wp-content/uploads/2018/03/coffee-14.gif?w=20" type="image/x-icon">
+  <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+  <link href="/aboutme.css" rel="stylesheet" type="text/css" media="all">
+
+
+
+
+  <script>
+    NekoType = "moka"
+  </script>
+  <h1 id="nl">
+    <script src="https://webneko.net/n20171213.js"></script><style type="text/css">#nl{display:none;}</style><a href="https://webneko.net">Neko</a>
+  </h1>
+
+  <div class="maincontainer">
+
+    <img src="https://files.catbox.moe/z9vzla.jpeg" class="pfp" alt="cat picture">
+
+    <div class="rndmbox">
+    </div>
+
+    <div class="textboxborder">
+      <div class="textbox">
+
+      <div class="welcome">
+        Welcome ...
+      </div>
+
+      <div class="text">
+
+        ... my name is eli. I'm currently 18 years old and finishing school. I've gotten into coding in around 2021, when myspace started resurfacing again. Around that time is when i started this webpage, for fun. After forgetting about it for a year i started working on it again and this is where i am at right now. When i'm not on here, i'm probably studying or doing something creative like drawing, crocheting or just crafts.
+
+        
+        <div class="text02" tabindex="1">
+          me
+        </div>
+        
+          <div class="text03" tabindex="2">
+          fav artists
+        </div>
+          
+        <div class="mebox">
+          <img src="https://bluecaet.neocities.org/resources02/sheher.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/piesces.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/cats.png" class="meico" alt="music notes divider">
+          
+        </div>
+        
+        <div class="favartistsbox">
+          I like listening to many different genres of music. My current favourite artists are HER MIN, pinkpantheress and faye webster. Though, i also like artists like MF DOOM and nujabes. I'm also into kpop, specifically txt, enhypen, loona and f(x).
+        </div>
+        
+
+        </div></div>
+
+      <img src="https://bluecaet.neocities.org/resources02/musicnotesdiv.png" class="divider" alt="music notes divider">
+
+      <p><a href="https://spacehey.com/profile?id=1186420" class="button1">
+          spacehey
+        </a> </p>
+
+      <p><a href="https://de.pinterest.com/bluecaet/" class="button2">
+          pinterest
+        </a> </p>
+
+    </div>
+
+    <div class="rndmbox2">
+    </div>
+
+    <div class="blinkiesboxborder">
+    <div class="blinkiesbox">
+
+      <div class="blinkiescon">
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://bluecaet.neocities.org/resources/rilakkumabadge.gif" style="margin-top: 10px; margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge7.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge2.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge3.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://cyber.dabamos.de/88x31/nec.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://capstasher.neocities.org/88x31collection-page1"><img class="clique" alt="i love rilakkuma" src="https://capstasher.neocities.org/88x31Buttons/ao3gif.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://neocities.org/"><img class="clique" alt="i love rilakkuma" src="https://hellosailor.neocities.org/microbars/neocities%20page%20stamp.png" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="i love lain" src="https://64.media.tumblr.com/57fd76e3c7a239e098ea27c7029a0fee/421f629cb5164425-4b/s100x200/f7d82a99df3734172fd6e41b0015c862bd4d3d6f.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="palestine" src="https://64.media.tumblr.com/2d7c26f7a542b580602a220e5a5a1e29/c1444e7ecc640155-a9/s100x200/d323b29bc54c3710b48ffc7929fa68e34df42adb.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+      </div>
+      </div>
+    </div>
+
+    <a href="https://bluecaet.neocities.org/home"><img class="home" alt="home" src="https://bluecaet.neocities.org/resources02/houseico.png" style="filter: drop-shadow(2px 0px 0px white)
+      drop-shadow(-2px 0px 0px white)
+      drop-shadow(0px 2px 0px white)
+      drop-shadow(0px -2px 0px white)
+      "></a>
+
+  </div>
+
+
+<div><div id="layerNeko0" style="position: absolute; clip: rect(0px, 32px, 32px, 0px); visibility: visible; left: 0px; top: 0px; z-index: 1000;"><a ondblclick="document.location.href=&quot;https://webneko.net&quot;" href="https://webneko.net" onmouseover="aNekos[0].message();return true" onmouseout="window.status = &quot;&quot;" onclick="aNekos[0].active = !aNekos[0].active;return false;" onfocus="this.blur()"><img border="0" name="imageNeko0" src="https://webneko.net/moka/sleep2.gif"></a></div></div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 501.328385px; top: 636.16312px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 605.192979px; top: 442.24281px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 600.483861px; top: 514.226802px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 557.241729px; top: 626.936308px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 543.492606px; top: 556.000877px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 551.191787px; top: 675.11324px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 513.646774px; top: 506.896273px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 645.733638px; top: 468.807622px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 629.130999px; top: 528.516236px;">+</div></body>
+<html><head><style type="text/css">
+  * {
+    cursor: url(https://64.media.tumblr.com/tumblr_m2umkqvNUT1qfamg6.gif), auto !important;
+  }
+</style></head><body><a href="https://www.cursors-4u.com/cursor/2011/10/19/tiny-hand-bow-red-heart.html" target="_blank" title="Tiny Hand Bow Red Heart"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Tiny Hand Bow Red Heart" style="position:absolute; top: 0px; right: 0px;"></a>
+
+
+
+  <script type="text/javascript">
+    // <![CDATA[
+    var sparks = 3; // how many sparks per clicksplosion
+    var speed = 25; // how fast - smaller is faster
+    var bangs = 3; // how many can be launched simultaneously (note that using too many can slow the script down)
+    var colours = new Array('#b38a5d');
+    //                     blue    red     green   purple  cyan    orange  pink
+    /****************************
+     *   Clicksplosion Effect    *
+     *(c)2012-3 mf2fm web-design *
+     *  http://www.mf2fm.com/rv  *
+     * DON'T EDIT BELOW THIS BOX *
+     ****************************/
+    var intensity = new Array();
+    var Xpos = new Array();
+    var Ypos = new Array();
+    var dX = new Array();
+    var dY = new Array();
+    var stars = new Array();
+    var decay = new Array();
+    var timers = new Array();
+    var swide = 800;
+    var shigh = 600;
+    var sleft = sdown = 0;
+    var count = 0;
+
+    function addLoadEvent(funky) {
+      var oldonload = window.onload;
+      if (typeof(oldonload) != 'function') window.onload = funky;
+      else window.onload = function() {
+        if (oldonload) oldonload();
+        funky();
+      }
+    }
+    addLoadEvent(clicksplode);
+
+    function clicksplode() {
+      if (document.getElementById) {
+        var i, j;
+        window.onscroll = set_scroll;
+        window.onresize = set_width;
+        document.onclick = eksplode;
+        set_width();
+        set_scroll();
+        for (i = 0; i < bangs; i++)
+          for (j = sparks * i; j < sparks + sparks * i; j++) {
+            stars[j] = createDiv('+', 13);
+            document.body.appendChild(stars[j]);
+          }
+      }
+    }
+
+    function createDiv(char, size) {
+      var div, sty;
+      div = document.createElement('div');
+      sty = div.style;
+      sty.font = size + 'px monospace';
+      sty.position = 'absolute';
+      sty.backgroundColor = 'transparent';
+      sty.visibility = 'hidden';
+      sty.zIndex = '101';
+      div.appendChild(document.createTextNode(char));
+      return (div);
+    }
+
+    function bang(N) {
+      var i, Z, A = 0;
+      for (i = sparks * N; i < sparks * (N + 1); i++) {
+        if (decay[i]) {
+          Z = stars[i].style;
+          Xpos[i] += dX[i];
+          Ypos[i] += (dY[i] += 1.25 / intensity[N]);
+          if (Xpos[i] >= swide || Xpos[i] < 0 || Ypos[i] >= shigh + sdown || Ypos[i] < 0) decay[i] = 1;
+          else {
+            Z.left = Xpos[i] + 'px';
+            Z.top = Ypos[i] + 'px';
+          }
+          if (decay[i] == 15) Z.fontSize = '3px';
+          else if (decay[i] == 7) Z.fontSize = '2px';
+          else if (decay[i] == 1) Z.visibility = 'hidden';
+          decay[i]--;
+        } else A++;
+      }
+      if (A != sparks) timers[N] = setTimeout('bang(' + N + ')', speed);
+    }
+
+    function eksplode(e) {
+      var x, y, i, M, Z, N;
+      set_scroll();
+      y = (e) ? e.pageY : event.y + sdown;
+      x = (e) ? e.pageX : event.x + sleft;
+      N = ++count % bangs;
+      M = Math.floor(Math.random() * 3 * colours.length);
+      intensity[N] = 5 + Math.random() * 4;
+      for (i = N * sparks; i < (N + 1) * sparks; i++) {
+        Xpos[i] = x;
+        Ypos[i] = y - 5;
+        dY[i] = (Math.random() - 0.5) * intensity[N];
+        dX[i] = (Math.random() - 0.5) * (intensity[N] - Math.abs(dY[i])) * 1.25;
+        decay[i] = 16 + Math.floor(Math.random() * 16);
+        Z = stars[i].style;
+        if (M < colours.length) Z.color = colours[i % 2 ? count % colours.length : M];
+        else if (M < 2 * colours.length) Z.color = colours[count % colours.length];
+        else Z.color = colours[i % colours.length];
+        Z.fontSize = '10px';
+        Z.visibility = 'visible';
+      }
+      clearTimeout(timers[N]);
+      bang(N);
+    }
+
+    function set_width() {
+      var sw_min = 999999;
+      var sh_min = 999999;
+      if (document.documentElement && document.documentElement.clientWidth) {
+        if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
+        if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
+      }
+      if (typeof(self.innerWidth) == 'number' && self.innerWidth) {
+        if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
+        if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
+      }
+      if (document.body.clientWidth) {
+        if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min) sw_min = document.body.clientWidth;
+        if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min) sh_min = document.body.clientHeight;
+      }
+      if (sw_min == 999999 || sh_min == 999999) {
+        sw_min = 800;
+        sh_min = 600;
+      }
+      swide = sw_min - 7;
+      shigh = sh_min - 7;
+    }
+
+    function set_scroll() {
+      if (typeof(self.pageYOffset) == 'number') {
+        sdown = self.pageYOffset;
+        sleft = self.pageXOffset;
+      } else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+        sdown = document.body.scrollTop;
+        sleft = document.body.scrollLeft;
+      } else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+        sleft = document.documentElement.scrollLeft;
+        sdown = document.documentElement.scrollTop;
+      } else {
+        sdown = 0;
+        sleft = 0;
+      }
+    }
+    // ]]>
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>b l u e c ae t â™¡</title>
+  <link rel="shortcut icon" href="https://cutekawaiiresources.wordpress.com/wp-content/uploads/2018/03/coffee-14.gif?w=20" type="image/x-icon">
+  <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+  <link href="/aboutme.css" rel="stylesheet" type="text/css" media="all">
+
+
+
+
+  <script>
+    NekoType = "moka"
+  </script>
+  <h1 id="nl">
+    <script src="https://webneko.net/n20171213.js"></script><style type="text/css">#nl{display:none;}</style><a href="https://webneko.net">Neko</a>
+  </h1>
+
+  <div class="maincontainer">
+
+    <img src="https://files.catbox.moe/z9vzla.jpeg" class="pfp" alt="cat picture">
+
+    <div class="rndmbox">
+    </div>
+
+    <div class="textboxborder">
+      <div class="textbox">
+
+      <div class="welcome">
+        Welcome ...
+      </div>
+
+      <div class="text">
+
+        ... my name is eli. I'm currently 18 years old and finishing school. I've gotten into coding in around 2021, when myspace started resurfacing again. Around that time is when i started this webpage, for fun. After forgetting about it for a year i started working on it again and this is where i am at right now. When i'm not on here, i'm probably studying or doing something creative like drawing, crocheting or just crafts.
+
+        
+        <div class="text02" tabindex="1">
+          me
+        </div>
+        
+          <div class="text03" tabindex="2">
+          fav artists
+        </div>
+          
+        <div class="mebox">
+          <img src="https://bluecaet.neocities.org/resources02/sheher.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/piesces.png" class="meico" alt="music notes divider">
+          
+          <img src="https://bluecaet.neocities.org/resources02/cats.png" class="meico" alt="music notes divider">
+          
+        </div>
+        
+        <div class="favartistsbox">
+          I like listening to many different genres of music. My current favourite artists are HER MIN, pinkpantheress and faye webster. Though, i also like artists like MF DOOM and nujabes. I'm also into kpop, specifically txt, enhypen, loona and f(x).
+        </div>
+        
+
+        </div></div>
+
+      <img src="https://bluecaet.neocities.org/resources02/musicnotesdiv.png" class="divider" alt="music notes divider">
+
+      <p><a href="https://spacehey.com/profile?id=1186420" class="button1">
+          spacehey
+        </a> </p>
+
+      <p><a href="https://de.pinterest.com/bluecaet/" class="button2">
+          pinterest
+        </a> </p>
+
+    </div>
+
+    <div class="rndmbox2">
+    </div>
+
+    <div class="blinkiesboxborder">
+    <div class="blinkiesbox">
+
+      <div class="blinkiescon">
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://bluecaet.neocities.org/resources/rilakkumabadge.gif" style="margin-top: 10px; margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge7.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge2.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://artwork.neocities.org/toybox/mine/artworkbadge3.gif" style="margin-left: 25px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://artwork.neocities.org/toybox"><img class="clique" alt="i love rilakkuma" src="https://cyber.dabamos.de/88x31/nec.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://capstasher.neocities.org/88x31collection-page1"><img class="clique" alt="i love rilakkuma" src="https://capstasher.neocities.org/88x31Buttons/ao3gif.gif" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href="https://neocities.org/"><img class="clique" alt="i love rilakkuma" src="https://hellosailor.neocities.org/microbars/neocities%20page%20stamp.png" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="i love lain" src="https://64.media.tumblr.com/57fd76e3c7a239e098ea27c7029a0fee/421f629cb5164425-4b/s100x200/f7d82a99df3734172fd6e41b0015c862bd4d3d6f.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+        <a target="_blank" href=""><img class="clique" alt="palestine" src="https://64.media.tumblr.com/2d7c26f7a542b580602a220e5a5a1e29/c1444e7ecc640155-a9/s100x200/d323b29bc54c3710b48ffc7929fa68e34df42adb.gifv" style=" margin-left: 21px; padding-bottom: 2px;"></a>
+
+      </div>
+      </div>
+    </div>
+
+    <a href="https://bluecaet.neocities.org/home"><img class="home" alt="home" src="https://bluecaet.neocities.org/resources02/houseico.png" style="filter: drop-shadow(2px 0px 0px white)
+      drop-shadow(-2px 0px 0px white)
+      drop-shadow(0px 2px 0px white)
+      drop-shadow(0px -2px 0px white)
+      "></a>
+
+  </div>
+
+
+<div><div id="layerNeko0" style="position: absolute; clip: rect(0px, 32px, 32px, 0px); visibility: visible; left: 0px; top: 0px; z-index: 1000;"><a ondblclick="document.location.href=&quot;https://webneko.net&quot;" href="https://webneko.net" onmouseover="aNekos[0].message();return true" onmouseout="window.status = &quot;&quot;" onclick="aNekos[0].active = !aNekos[0].active;return false;" onfocus="this.blur()"><img border="0" name="imageNeko0" src="https://webneko.net/moka/sleep2.gif"></a></div></div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 501.328385px; top: 636.16312px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 605.192979px; top: 442.24281px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 600.483861px; top: 514.226802px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 557.241729px; top: 626.936308px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 543.492606px; top: 556.000877px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 551.191787px; top: 675.11324px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 513.646774px; top: 506.896273px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 645.733638px; top: 468.807622px;">+</div><div style="font-style: normal; font-variant-caps: normal; font-weight: normal; font-stretch: normal; font-size: 2px; line-height: normal; font-family: monospace; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal; position: absolute; background-color: transparent; visibility: hidden; z-index: 101; color: rgb(179, 138, 93); left: 629.130999px; top: 528.516236px;">+</div></body></html>
