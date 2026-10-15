@@ -1,497 +1,2129 @@
-<!DOCTYPE html>
-<!--
-Please don't straight up copy my codes. I understand the process of learning and wanting to take inspiration from other works, that's how others create!
-It's fine to copy and learn from my website as much as I did in the past but I kindly ask for your understanding it's greatly discouraging for me to find websites plain out copy-paste my codes that I took the time to work on and figure out.
-This is a personal project of mine that I see as an extension myself or "embodiment" of my experience growing up so it is uncomfortable to see others take from this. I'm aware I hold no power and control over what one can do but I hope to at least ask for respect to my feelings in my work.
-Thank you!
--->
-<html><head>
-	<title>boyoyoing</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="ago.css">
-	<link rel="icon" type="image/png" href="media/icon.png">
-	<link href="https://fonts.googleapis.com/css?family=Press Start 2P" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Silkscreen" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-	<link href="https://fonts.cdnfonts.com/css/notepen" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Grandstander" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&amp;display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Balsamiq Sans" rel="stylesheet">
+<html><head><script src="https://kit.fontawesome.com/f936906ae0.js" crossorigin="anonymous"></script>
+    
+    <link rel="icon" type="image/x-icon" href="index/melomelo.gif">
+
+
+    
+    <title>it's a girls world ♡</title>
+    
+
+    
+    <style>
+    #s-m-t-tooltip {
+        /* basic */
+        max-width: 250px;
+        z-index: 1000;
+        margin-top: 25px;
+        margin-left: 10px;
+        /* style and design */
+        padding: 5px;
+        color: #a37367;
+        background-color: white;
+        background-image: linear-gradient(to bottom, #FFB0C930, #FFB0C910);
+        box-shadow: inset 0px 0px 3px #ffffff;
+        border: 1px solid #FFB0C9;
+        outline: 1px solid white;
+        border-radius: 6px;
+    } 
+        
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="https://static.tumblr.com/lspzyz3/xloqk6cgp/jquery.style-my-tooltips.js"></script>
+    <script>
+							(function($){
+							$(document).ready(function(){
+							$("[title]").style_my_tooltips({
+							tip_follows_cursor: true,
+							tip_delay_time:000,
+							tip_fade_speed:100,
+							attribute:"title"
+							});
+							});
+							})(jQuery);
+</script>
+   
+    
+<style>
+
+    ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px
+        }
+    ::-webkit-scrollbar-thumb {
+        background: #FFB0C950;
+        background-size: 100%;
+        border: 1px solid #FFB0C9;
+        border-radius: 8px;
+        }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #FFB0C990;
+        background-size: 100%;
+        border: 1px solid #FFB0C9;
+        border-radius: 8px;
+        }
+    ::-webkit-scrollbar-track {
+        background: white;
+        border: 1px solid #FFB0C9;
+        border-radius: 8px;
+        }
+    
+    ::selection {
+        color: #FFB0C9;
+        background: #ffc9da20;
+        }
+     
+    
+    @font-face {
+        font-family: spirit; 
+        src: url(https://files.catbox.moe/u949la.ttf);
+    }
+    
+    @keyframes float{
+        0%, 100% {
+    transform: translateY(-5px)
+}
+50% {
+    transform: translateY(5px)
+}
+}
+    
+    @keyframes float2{
+        0%, 100% {
+    transform: translateY(-5px) rotate(10deg)
+}
+50% {
+    transform: translateY(5px) rotate(10deg)
+}
+}
+    
+    body{
+        background-image: url(index/checkbg.png);
+        margin: auto;
+        font-family: windows regular;
+        font-size: 12px;
+        min-width: 1200px;
+        max-width: 1200px;
+        color: #a37367;
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        cursor: url(index/cursor.png), auto
+    }  
+    
+    a{
+        text-decoration: underline;
+        color: #86b8b8;
+        transition: .1s
+        }   
+        
+    a:hover {
+        color: #6d9999;
+        font-style: italic;
+        cursor: url(index/cursor_b.png), auto;
+    }
+
+    .wrapper{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .block{
+        display: block;
+    }
+    
+    
+    
+    #outer{
+        background-image: url(index/lacebg.png);
+        background-size: 50% auto;
+        width: 1000px;
+        height: 1000px;
+        filter: drop-shadow(0px 0px .7px #a37367);
+        margin: auto;
+    }
+    
+    #main{
+        width: 965px;
+        height: 100%;
+        background-image: url(index/tealcheck.gif);
+        background-size: 2%;
+        margin: auto;
+        border: 1px solid #a3736750;
+        border-bottom: 0px;
+        border-top: 0px;
+        box-shadow: 0px 0px 10px white inset,  0px 0px 5px white inset;
+    }
+    
+    #left{
+        width: 220px;
+        height: 100%;
+        margin: auto;
+        margin-right: -1px;
+        margin-left: 12px;
+        display: block;
+    }
+    
+    #right{
+        width: 720px;
+        height: 100%;
+        margin: auto;
+    }
+    
+    #r1{
+        width: 485px;
+        height: 100%
+    }
+    
+    #r2{
+        width: 220px;
+        height: 100%
+    }
+    
+    #header{
+        width: 98%;
+        height: 150px;
+        background-image: url(index/headerbg.gif);
+        border: 3px solid white;
+        outline: 1px solid #D1B9B3;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 2px #a3736710;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #headertitle{
+        font-family: spirit;
+        font-size: 20px;
+        margin: auto;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 0px #FFB0C9, 0px 2px #FFB0C9, -2px 0px #FFB0C9, 0px -2px #FFB0C9, 3px 3px 3px #a37367;
+        border-bottom: 2px dashed #FFB0C9;
+        padding-bottom: 5px;
+        width: fit-content
+    }
+    
+    #headertitle::before{
+        content: url(index/bow.png);
+        margin-right: 10px;
+    }
+    
+    #headertitle::after{
+        content: url(index/bow.png);
+        margin-left: 10px;
+    }
+    
+    #chiikawa1{
+        width: 150px;
+        height: 150px;
+        background-image: url(index/chiikawalolli.png);
+        background-size: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        position: absolute;
+        margin-top: 100px;
+        margin-left: 1000px;
+        z-index: 2;
+        animation: float;
+        animation-duration: 15s;
+        animation-iteration-count: infinite;
+        filter: drop-shadow(2px 0px white) drop-shadow(0px 2px white) drop-shadow(-2px 0px white) drop-shadow(0px -2px white) drop-shadow(2px 2px 1px #a3736790)
+    }
+    
+    #box1{
+        width: 98%;
+        height: 230px;
+        background-image: url(index/dotbg1.png);
+        border: 3px solid white;
+        outline: 1px solid #D1B9B3;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 2px #a3736710
+    }
+    
+    #mainbox{
+        width: 98%;
+        height: 780px;
+        background: #fff7fa;
+        border: 3px solid white;
+        outline: 1px solid #D1B9B3;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 2px #a3736710;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #sidebar{
+        width: 98%;
+        height: 700px;
+        background: #fff7fa;
+        border: 3px solid white;
+        outline: 1px solid #D1B9B3;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 2px #a3736710
+    }
+    
+    .toplace{
+        background-image: url(index/toplacey.png);
+        background-size: auto 100%;
+        width: 100%;
+        height: 20px;
+        filter: drop-shadow(0px 1px #D1B9B3)
+    }
+
+    
+    
+    
+    #bubble{
+        width: 100px;
+        height: 100px;
+        background-image: url(index/bubble.png);
+        position: absolute;
+        margin-top: 20px;
+        margin-left: 40px;
+        z-index: 2;
+        background-size: auto 100%;
+        background-position: center center;
+        filter: drop-shadow(2px 2px #a3736790);
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #bubble p{
+        color: white;
+        text-shadow: 2px 0px 1px #86b8b8, 0 2px 1px #86b8b8, 2px 0 1px #86b8b8, 0 -2px 1px #86b8b8, 2px 2px #a3736790;
+        font-size: 20px;
+        margin: auto;
+        font-family: spirit
+    }
+    
+    #statuscafe {
+        width: 190px;
+        margin: auto;
+        margin-top: 10px;
+        padding: 5px;
+        background-color: white;
+        border: 1px dashed #FFB0C9;
+        outline: 2px solid white;
+        box-shadow: 3px 3px #a3736750;
+        text-align: left;
+        border-radius: 4px;
+    }
+    
+    #statuscafe-username {
+        margin-left: 2px;
+        margin-top: 2px;
+        margin-bottom: 4px;
+        text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white;
+        background: #ebf5f5;
+        padding-left: 4px;
+        padding-right: 4px;
+        width: fit-content;
+        border-right: 2px solid #6d999950;
+        border-bottom: 2px solid #6d999950;
+        font-size: 12px;
+    }
+
+    #statuscafe-content {
+        margin: 0em 0em 0.5em 0.5em ;
+        height: 25px;
+        overflow-y: auto
+    }
+    
+    #statuscafe-content::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    #lastfm {
+        width: 200px;
+        height: 85px;
+        background-color: white;
+        border-radius: 4px;
+        border: 1px dashed #FFB0C9;
+        outline: 2px solid white;
+        box-shadow: 3px 3px #a3736750;
+        margin: auto;
+        margin-top: 10px;
+        overflow: hidden;
+     }
+    
+    #lastfm a{
+       font-family: windows regular;
+        font-size: 12px;
+    }
+    
+    #lastfmwrapper{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #trackart {
+        height: 65px;
+        width: 65px;
+        border-radius: 4px;
+        opacity: 75%;
+        transition: .3s;
+        justify-content: center;
+        align-content: center;
+        margin-top: 4px;
+        border: 2px solid white;
+        outline: 1px solid #FFB0C9;
+    }
+    
+    #trackart:hover{
+        opacity: 100%
+    }
+    
+    #lastfmimgbox{
+        width: 80px;
+        height: 100%;
+        padding: 5px;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    .trackInfo{
+        width: 110px;
+        height: 100%;
+        
+        display: block;
+        justify-content: center;
+    }
+    
+    .trackInfo p{
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 3px;
+        border-bottom: 1px dashed #FFB0C9
+    }
+    
+    .trackInfo marquee{
+        width: 90px;
+    }
+
+    
+    
+    #navi{
+        background: white;
+        border: 1px solid #D1B9B3;
+        width: 97%;
+        height: 355px;
+        margin: auto;
+        margin-top: 3px;
+        border-radius: 4px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        text-align: left
+    }
+    
+    #navi::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+
+    .ntitle{
+        background-image: url(index/dotbg1.png);
+        font-size: 20px;
+        color: white;
+        text-shadow: -2px 1px #FFB0C9, 0 2px #FFB0C9, 2px 0 #FFB0C9, 0 -2px #FFB0C9, 0 0;
+        width: 100%;
+        padding-left: 5px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        font-family: spirit;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .navbutton{
+        font-family: "windows regular";
+        font-weight: bold;
+        width: 100%;
+        height: 28px;
+        border: 1px solid #FFB0C9;
+        border-bottom: 0px;
+        border-left: 0px;
+        background-color: white;
+        background-image: linear-gradient(#fff7fa 50%, #ffdeeb 100%);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .navbutton:hover{
+        background-image: linear-gradient(#ebf5f590 50%, #d3eded90 100%);
+    }
+    
+    .navbutton p{
+        margin-left: 8px;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    
+    .navbutton img{
+        margin-right: 8px;
+        filter: brightness(110%)
+    }
+
+    .navbutton2{
+        font-family: "windows regular";
+        font-weight: bold;
+        width: 100%;
+        height: 28px;
+        border: 1px solid #FFB0C9;
+        border-bottom: 0px;
+        border-left: 0px;
+        background-color: white;
+        background-image: linear-gradient(#fff7fa 50%, #ffdeeb 100%);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .navbutton2:hover{
+        font-style: normal;
+        color: #86b8b8;
+        cursor: url(index/cursor.png), auto
+    }
+    
+    .navbutton2 p{
+        margin-left: 8px;
+        font-size: 13px;
+        font-weight: normal;
+        opacity: 75%;
+        text-decoration: line-through;
+    }
+    
+    .navbutton2 img{
+        margin-right: 8px;
+        filter: brightness(110%)
+    }
+    
+    .newpage::after{
+        content: url(index/new.gif);
+        margin-left: 5px;
+    }
+    
+    
+    
+    #welcome{
+        width: 97%;
+        margin-top: 5px;
+        margin-left: 5px;
+        height: 300px;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        background-image: url(index/checkbg2.png);
+        background-size: 3%;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #welcome2{
+        width: 96%;
+        height: 93%;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        background: white;
+        margin: auto
+    }
+    
+    #mymelo{
+        width: 120px;
+        float: left;
+        margin-top: -5px;
+        margin-left: 10px;
+        margin-right: 15px;
+    }        
+    
+    #welcome hr{
+        width: 90%;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: 0;
+        border-bottom: 2px dashed #FFB0C9;
+    }
+    
+    #welcome span{
+        font-family: spirit; font-weight: bold; text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white;
+        background: #ebf5f5;
+        padding: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+        width: fit-content;
+        border-right: 2px solid #6d999950;
+        border-bottom: 2px solid #6d999950;
+    }
+    
+    
+    #funstuff{
+        width: 97%;
+        margin-top: 5px;
+        margin-left: 5px;
+        height: 300px;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        background-image: url(index/stripebg.png);
+        background-size: 1%;
+        align-content: center;
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #pollbox{
+        width: 220px;
+        height: 280px;
+        background: white;
+        margin: auto;
+        margin-left: px;
+        margin-right: 10px;
+        border: 1px solid #D1B9B3;
+        border-radius: 14px;
+        overflow: hidden;
+        text-align: left;
+        display: block;
+        
+    }
+    
+    #polltitle{
+        background-image: linear-gradient(to bottom, #FFB0C920 0%, #FFB0C950 50%, #FFB0C990 51%, #FFB0C920 100%);
+        width: 100%;
+        height: 30px;
+        align-content: center;
+        justify-content: center;
+        font-family: spirit;
+        font-weight: bold;
+        text-shadow: 2px 0px 1px white, 0px 2px 1px white, -2px 0px 1px white, 0px -2px 1px white, 3px 3px 3px;
+        padding-bottom: 2px;
+        font-size: 16px;
+        border-bottom: 1px solid;
+        margin-bottom: 10px;
+        text-align: center
+    }
+    
+    #polltitle p{
+        margin: auto;
+    }
+    
+    #pollscroll{
+        width: 100%;
+        height: 210px;
+        overflow-y: auto;
+        margin: auto;
+        margin-bottom: -10px
+    }
+    
+    #pollscroll::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    .pollanswer{
+        width: 10px;
+        accent-color: #a37367;
+        margin-left: 10px;
+        margin-right: 10px;
+        cursor: url(index/cursor.png), auto;
+        display: inline-block;
+    }
+    
+    #pollbox label{
+        border-bottom: 1px dashed #FFB0C9;
+        padding-bottom: 1px;
+        font-size: 12px;
+        cursor: url(index/cursor.png), auto;
+    }
+    
+    .pollbutton{
+        background-color: white;
+        background-image: linear-gradient(to bottom, #86b8b820 0%, #86b8b840 50%, #86b8b850 51%, #86b8b820 100%);
+        border-radius: 4px;
+        border: 1px solid #D1B9B3;
+        font-family: windows regular;
+        font-size: 12px;
+        color: #a37367;
+        padding: 2px;
+        margin-top: 5px;
+        margin-right: 5px;
+        text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white;
+        margin-bottom: 19px;
+    }
+    
+    .pollbutton:hover{
+        background-image: linear-gradient(to bottom, #86b8b840 0%, #86b8b840 50%, #86b8b850 51%, #86b8b850 100%);
+        cursor: url(cursor_b.png), auto;
+    }
+
+    #cboxwhite{
+        width: 220px;
+        height: 10px;
+        background: white;
+        position: absolute;
+        margin-top: 10px;
+        margin-left: 231px;
+        border-radius: 14px 14px 0px 0px;   
+        border: 1px solid #D1B9B3;
+        border-bottom: 0px;
+        z-index: 2
+    }
+    
+    #cboxlace{
+        width: 220px;
+        position: absolute;
+        margin-top: 20px;
+        margin-left: 231px;
+        border-radius: 14px 14px 0px 0px;
+        z-index: 2
+    }
+    
+    #cboxlace p{
+        font-family: spirit;
+        font-weight: bold;
+        text-shadow: 2px 0px 1px white, 0px 2px 1px white, -2px 0px 1px white, 0px -2px 1px white, 3px 3px 3px;
+        font-size: 16px;
+        margin-top: -5px
+    }
+
+    #bubble2{
+        background-image: url(index/bubble2.png);
+        width: 100px;
+        height: 100px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        margin-top: 10px;
+        margin-left: 490px;
+        filter: drop-shadow(2px 2px #a3736790);
+        align-content: center;
+        justify-content: center;
+        z-index: 3
+    }
+    
+    #bubble2 p{
+        margin-left: 10px;
+        color: white;
+        text-shadow: 1px 0px #a37367, 0px 1px #a37367, -1px 0px #a37367, 0px -1px #a37367;
+        margin-top: -1px
+    }
+
+    
+    #pencil{
+        height: 250px;
+        position: absolute;
+        margin-top: 30px;
+        margin-left: -50px;
+        z-index: 2;
+        animation: float2;
+        animation-duration: 17s;
+        animation-iteration-count: infinite;
+        filter: drop-shadow(2px 2px 1px #a3736780)
+    }
+    
+    
+    #bottombox{
+        width: 97%;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        height: 115px;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        background-image: url(index/checkbg2.png);
+        background-size: 3%;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #bottombox2{
+        width: 96%;
+        height: 85%;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        background: white;
+        margin: auto;
+        align-content: center;
+        justify-content: center;
+        text-align: left;
+    }
+    
+    #bottombox2 span{
+        font-family: spirit; font-weight: bold; text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white;
+        background: #ebf5f5;
+        padding: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+        width: fit-content;
+        border-right: 2px solid #6d999950;
+        border-bottom: 2px solid #6d999950;
+        margin-left: -5px;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #bottombox2 p{
+        margin: auto;
+        height: fit-content;
+        margin-left: 20px;
+        margin-top: 10px;
+        width: 90%;
+        line-height: 1.2;
+    }
+    
+    #bottombox2 img{
+        width: 25%;
+        margin: auto;
+        margin-top: 78px;
+    }
+
+    
+    
+    #neighborhood{
+        width: 190px;
+        height: 276px;
+        border: 7px solid;
+        border-image: url(index/border.png) 5 fill round;
+        border-image-outset: 2px;
+        border-radius: 8px;
+        outline: 1px dashed #FFB0C9;
+        outline-offset: -6px;
+        margin-top: 5px;
+        image-rendering: pixelated;
+        padding: 5px;
+    }
+    
+    #neighborhood2{
+        width: 190px;
+        height: 220px;
+        overflow-y: scroll;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #nh{
+        width: auto;
+        height: auto;
+        opacity: 50%;
+        transition: .3s;
+        filter: saturate(90%);
+        image-rendering: pixelated
+    }
+    
+    #nh:hover{
+        filter: saturate(100%);
+        opacity: 100%
+    }
+    
+    #neighborhood2::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    #neighbortxt{
+        width: 100%;
+        height: 20%;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #neighbortxt p{
+        border-bottom: 1px dashed #FFB0C9;
+        width: fit-content;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 3px;
+        padding-bottom: 3px;
+    }
+    
+    #neighbortitle{
+        position: absolute;
+        margin-top: 1px;
+        margin-left: 47px;
+        font-size: 16px;
+        font-family: spirit;
+        font-weight: bold;
+        text-shadow: 2px 0px 1px white, 0px 2px 1px white, -2px 0px 1px white, 0px -2px 1px white, 3px 3px 3px;
+        z-index: 3
+    }
+
+    .site{
+        width: 45%;
+        margin: auto;
+        margin-bottom: 2px;
+    }
+
+    
+    #flwb{
+        width: 210px;
+        height: 452px;
+        background-image: url(index/dotbg1.png);
+        border: 3px solid white;
+        outline: 1px solid #D1B9B3;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 10px;
+        margin-left: -1px;
+        box-shadow: 2px 2px 2px #a3736710
+    }
+    
+    #webrings{
+        background: white;
+        margin: auto;
+        margin-top: 1px;
+        width: 200px;
+        height: 300px;
+        border: 1px solid #D1B9B3;
+        border-radius: 4px;
+        align-content: center;
+        justify-content: center;
+        overflow-y: scroll;
+        display: block;
+    } 
+    
+    #webrings::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    #fanlists{
+        margin: auto;
+        margin-top: 4px;
+        width: 196px;
+        height: 119px;
+        background: white;
+        border: 1px solid #D1B9B3;
+        border-radius: 4px;
+        padding: 2px;
+        overflow-y: scroll;
+        text-align: left;
+    }
+
+    
+    #fanlists::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    #fanlists2{
+        width: auto;
+        height: auto;
+        opacity: 50%;
+        transition: .3s;
+        filter: saturate(90%);
+    }
+    
+    #fanlists2:hover{
+        filter: saturate(100%);
+        opacity: 100%
+    }
+    
+    #wbtitle{
+        font-family: spirit;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 0px 1px #86b8b8, 0px 2px 1px #86b8b8, -2px 0px 1px #86b8b8, 0px -2px 1px #86b8b8, 3px 3px 3px #a3736790;
+        font-size: 20px;
+        margin-top: 0px;
+        margin-bottom: -15px;
+        margin-right: 10px;
+        text-align: right;
+        position: relative;
+        z-index: 1
+    }
+    
+    #fltitle{
+        font-family: spirit;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 0px 1px #86b8b8, 0px 2px 1px #86b8b8, -2px 0px 1px #86b8b8, 0px -2px 1px #86b8b8, 3px 3px 3px #a3736790;
+        font-size: 20px;
+        margin-top: 5px;
+        margin-bottom: -16px;
+        margin-left: 5px;
+        text-align: left;
+        position: relative;
+        z-index: 1
+    }
+    
+    #yumering{
+        width: 180px;
+        height: fit-content;
+        margin: auto;
+        margin-top: 5px;
+        display: block;
+        image-rendering: pixelated
+    }
+    
+    #yumering img{
+        width: 90px;
+    }
+    
+    #iconbox{
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        position: relative;
+        margin-top: -103px;
+        margin-left: 21.5px;
+        margin-bottom: 50px;
+    }
+    
+    .fanlist{
+        width: 17%;
+        margin-left: 2px;
+        margin-top: 2px;
+    }
+
+    
+    
+    
+    #updatelog{
+        width: 97%;
+        height: 127px;
+        background-image: url(index/checkbg2.png);
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        margin: auto;
+        margin-top: 5px;
+    }
+    
+    #logtitle{
+        font-family: spirit;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 0px 1px #86b8b8, 0px 2px 1px #86b8b8, -2px 0px 1px #86b8b8, 0px -2px 1px #86b8b8, 3px 3px 3px #a3736790;
+        font-size: 16px;
+        margin-top: 6px;
+        margin-bottom: -15px;
+        margin-right: 10px;
+        text-align: center;
+        position: relative;
+        z-index: 1  
+    }
+    
+    #logtitle:before{
+        content: url(index/bow.png);
+        padding-right: 10px
+    }
+    
+    #logtitle:after{
+        content: url(index/bow.png);
+        padding-left: 10px
+    }
+    
+    #logbox{
+        width: 190px;
+        height: 85px;
+        background: white;
+        margin: auto;
+        margin-top: 20px;
+        border: 1px solid #FFB0C9;
+        border-radius: 4px;
+        image-rendering: pixelated;
+        overflow-y: auto;
+    }
+    
+    #logbox::-webkit-scrollbar {
+        width: 4px;
+        height: 4px
+    }
+    
+    #logbox p{
+        width: 170px;
+        height: fit-content;
+        margin: auto;
+        margin-top: 5px;
+        text-align: left;
+        font-size: 10px;
+        border-bottom: 1px dashed #FFB0C9;
+        padding-bottom: 3px;
+    }
+    
+    #logbox p:nth-child(1)::before{
+        content: url(index/new.gif);
+        padding-right: 5px;
+    }
+    
+    #logbox p::before{
+        content: "-";
+        padding-right: 5px;
+    }
+    
+    
+    #todolist{
+        background: white;
+        width: 190px;
+        height: 180px;
+        margin: auto;
+        margin-top: 10px;
+        border: 7px solid;
+        border-image: url(index/border.png) 5 fill round;
+        border-image-outset: 2px;
+        border-radius: 8px;
+        outline: 1px dashed #FFB0C9;
+        outline-offset: -6px;
+        image-rendering: pixelated;
+        text-align: left;
+    }
+    
+    #todotitle{
+        font-family: spirit;
+        font-weight: bold;
+        text-shadow: 2px 0px 1px white, 0px 2px 1px white, -2px 0px 1px white, 0px -2px 1px white, 3px 3px 3px;
+        font-size: 16px;
+        text-align: center;
+        margin: auto;
+        margin-top: 5px;
+    }
+
+    #todotitle::after{
+        content: url(index/pencil.gif)
+    }
+    
+    #todoscroll{
+        margin: auto;
+        width: 190px;
+        height: 165px;
+        overflow-y: auto;
+    }
+    
+    #todoscroll p{
+        border-bottom: 1px dashed #FFB0C9;
+        padding-bottom: 3px;
+        margin-left: 10px;
+        margin-bottom: -4px;
+        width: 170px;
+    }
+    
+    #todoscroll p:before{
+        content: url(index/ball.gif);
+        margin-right: 8px;
+    }
+    
+    #chiikawa2{
+        width: 100px;
+        height: 100px;
+        background-image: url(index/chiikawaheadopen.png);
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        margin-top: -80px;
+        margin-left: 150px;
+        transform: rotate(10deg);
+        filter: drop-shadow(2px 0px white) drop-shadow(0px 2px white) drop-shadow(-2px 0px white) drop-shadow(0px -2px white) drop-shadow(2px 2px 1px #a3736790);
+        transition: .2s
+    }
+    
+    #chiikawa2:hover{
+        background-image: url(index/chiikawaheadclosed.png);
+        transform: rotate(-10deg)
+    }
+    
+    
+    
+    #fujoringout-wrapper{
+        width: 146px !important;
+        height: fit-content !important;
+        background-image: url(index/stripebg.png);
+        background-size: 4% !important;
+        box-shadow: 0px 0px 7px inset #FFB0C990 !important;
+        border: 2px solid white !important;
+        border-radius: 4px !important;
+        outline: 1px solid #FFB0C9 !important;
+    }
+    
+    .webring-otp{
+        font-family: windows regular !important;
+        font-size: 12px !important;
+        color: #a37367 !important;
+    }
+    
+    .webring-title{
+        font-family: spirit !important;
+        font-size: 14px !important;
+        font-weight: bold !important;
+        text-decoration: underline !important;
+        transition: .2s !important;
+        margin-top: -4px !important;
+    }
+    
+    .webring-title h1{
+        font-size: 14px !important;
+        font-family: spirit !important;
+        color: #86b8b8 !important;
+        text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white !important;
+        margin-top: -1px !important;
+    }
+        
+    .webring-title:hover {
+        color: #6d9999 !important;
+        font-style: italic !important;
+    }
+    
+    .webring-otp1{
+        border: 7px solid !important;
+        width: 60px !important;
+        height: 60px !important;
+        border-image: url(index/border.png) 8 fill round !important;
+        outline: 1px dashed #FFB0C9 !important;
+        outline-offset: -6px !important;
+        border-radius: 8px !important;
+    }
+    
+    .webring-otp2{
+        border: 7px solid !important;
+        width: 60px !important;
+        height: 60px !important;
+        border-image: url(index/border.png) 8 fill round !important;
+        outline: 1px dashed #FFB0C9 !important;
+        outline-offset: -6px !important;
+        border-radius: 8px !important;
+    }
+
+    .webring-next a{
+        font-family: windows regular !important;
+        font-size: 12px !important;
+        color: #a37367 !important;
+    }
+    
+    .webring-info a{
+        font-family: windows regular !important;
+        font-size: 12px !important;
+        color: #a37367 !important;
+    }
+
+    .webring-prev a{
+        font-family: windows regular !important;
+        font-size: 12px !important;
+        color: #a37367 !important;
+    }
+    
+    #otp-1{
+        width: 60px !important;
+        opacity: 75% !important;
+        transition: .3s !important;
+    }
+  
+    #otp-2{
+        width: 60px !important;
+        opacity: 75% !important;
+        transition: .3s !important;
+    }
+
+    .webring-heart{
+        width: 10px !important;
+        height: 100% !important;
+        margin-left: 3px !important;
+        margin-right: 3px !important;
+    }
+    
+    .webring-heart img{
+        width: 10px !important;
+        height: 10px !important;
+    }
+   
+
+    .partner{
+        margin-top: 10px;
+        image-rendering: pixelated;
+        margin-right: 5px;
+    }
+    
+    
+    #crwr {
+        margin: auto;
+        width: 146px !important;
+        height: fit-content !important;
+        box-sizing: border-box;
+        background-image: url(index/checkbg2.png);
+        background-size: 4% !important;
+        box-shadow: 0px 0px 7px inset #FFB0C990 !important;
+        border: 2px solid white !important;
+        border-radius: 4px !important;
+        outline: 1px solid #FFB0C9 !important;
+        display: inline-block;
+    }
+    
+    
+</style>    
 </head>
 
-<body style="overflow-y:auto;" class="color">
-<div id="container">
-<div id="headerArea"></div>
-<div id="flex">    
-<div class="box21">
-<div class="box-center">
-<div class="box-inner">
-	
-	<main>
-	
-<div id="header">
-	<div class="row">
-	<div class="column left" style="width:17%;"><div class="bkmrk" style="margin-left:15px;background-color:#FEFFE7;"><div class="bkmrkin">
-		<a href="about.html">about</a>
-	</div></div></div>
-	<div class="column middle" style="width:20%;"><div class="bkmrk" style="background-color:#CEDDAA;"><div class="bkmrkin">
-		<a onclick="openCity('art')">art gallery</a>
-	</div></div></div>
-	<div class="column middle" style="width:23%;"><div class="bkmrk" style="margin-right:15px;background-color:#FFC8E2;"><div class="bkmrkin">
-		<a href="diary.html">diary logs</a>
-	</div></div></div>
-	<div class="column middle" style="width:26%;"><div class="bkmrk" style="margin-left:50px;background-color:#FBE9C9;"><div class="bkmrkin">
-		<a href="indexv1.html">archive</a>
-	</div></div></div>
-	<div class="column right" style="width:14%;"><div class="bkmrk" style="margin-right:10px;background-color:#D5E9F3;"><div class="bkmrkin">
-		<a href="hobby.html">hobby</a>
-	</div></div></div>
-	</div>
-</div>
-		
-<div class="row">
-<div class="column left" style="width:60%;">	
-		<div class="nbcntr" style="margin-top:0px;background-color:#FFFFF5;background-image:none;">
-		<div class="hdrpld"><div class="row">
-		    <div class="column left berries" style="padding-left:10px;width:50%;text-align:left;">hello world!</div>
-		    <div class="column right" style="width:50%;text-align:right;font-size:11px;">scroll <font style="font-size:8px;">▼</font></div>
-		</div></div>
-		
-		<div class="mnpg color">
-				<div id="main" class="city w3-animate-left" style="display:block;">
-		  <span>WELCOME TO HMLN.NEOCITIES.ORG!</span> <p>I am still learning as always so this website may not appear properly. It is <b>likely best viewed on desktop and 1920x1080</b>.
-		  I use Edge so it may appear differently in other browsers which I may be unaware of. If they are any issues, please let me know. Thank you! Have a lovely day.</p>
-		  
- <span>who is behind this?</span>
-		  <p style="text-indent:0px;">Hi, I'm <b>Elliott</b> but you may call me <b>Lio</b> for short!
-		  I'm a 20 year old student studying Multimedia arts who likes cute things and animals (Deadly allergic but who can stop me in this Earth? No one else but God). I'm just one of those people who miss the old web they enjoyed as a child hence the creation of this site... (UuU ;)9 I'm a yapper unfortunately so the text on the right is just a provided short summary of it's purpose but feel free to scroll down from here to know more.</p>
-		  
-		  <span>oh, where'd this come from?</span>
-		  <p style="text-indent:0px;">I was around the age of 11 which I believe happened somewhere in the year of 2016 was when I took interest in the web.
-		  I first discovered HTML and CSS through DeviantArt during when you could still customize your profile which excited me looking at the unique looks each user had in theirs!
-		  I find it unfortunate that sites now or at least most have become "simplistic" and no longer have these fun "personalities" I looked forward to when surfing the web.
-		  I also spent a lot of time playing games online as a kid so you can imagine how upset I was when Flash games died out... I especially enjoyed games from GirlsGoGames, Barbie and Avata Star Sue (special mentions to "World of Mimi" and "School Flirting Game" as well).
-		  You can bet for sure I was completely overjoyed since discovering Neocities!</p>
-		  
-		  <span>what does hmln even mean?</span>
-		  <img src="media/pup.gif" align="right" style="width:70px;padding-top:14px;">
-		  <p style="text-indent:0px;">Not impressive to learn about lol.. but it is named after Hamelin, a character from an otome visual novel titled Ozmafia!!! which is a game I have been unable to get over since 2017... painfully so.
-		  So many years have passed yet my heart still aches for him and a fictional man no less is what makes me miserable! It's embarassing (I still love him, don't take me seriously on this)!
-		  Besides the fact there is no real reason why I didn't just straight up use Hamelin and just took out the vowels when creating this site... you absolutely won't see any sight of him here which is absolutely diabolical cause you'd expect the theme to consist of him! but that just shows how much of a clown I am.</p>
-				</div>
-				<div id="art" class="city w3-animate-left" style="display:none;padding-right:5px;">
-		  <b>Note:</b> Please do note that this is temporary! This is to make up for the lack of updates but I do plan on making a dedicated page to contain all of my illustrations! :] <br><br><b><a onclick="openCity('main')">return to previous page?</a></b><br><br>
-		  <img src="art/marilevi png.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">MariLevi Chiikawa</p>
-		  <img src="art/Untitled137.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Machina x Flayon Maid</p>
-		  <img src="art/Untitled96.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Machina x Flayon</p>
-		  <img src="art/Untitled148.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Shu Yamino 2024 Birthday</p>
-		  <img src="art/Untitled126.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Aster Arcadia, Gift for <a href="https://x.com/nnknluv/">friend</a></p>
-		  <img src="art/Untitled68.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Luna Himemori 5th Costume</p>
-		  <img src="art/Untitled67.png" style="width:100%;">
-		  <p style="text-indent:0px;font-weight: bold;margin-top:5px;margin-bottom:15px;">Barbie Sketch</p>
-				</div>
-		</div>
-		</div>
-</div>
-<div class="column right" style="width:40%;">
-		<div style="height:0px;width:0px;position:absolute;">
-		<div style="position:relative;right:20px;top:20px;background-image:url('media/spiral.png');background-size:30px;background-repeat:no-repeat;width:30px;height:320px;"></div>
-		</div>
-		
-		<div class="nbcntr" style="height:355px;margin-top:0px;">
-		<div class="sdpg">
-		<div style="padding:3px;border:1px solid #EDEDED;border-radius:3px;background-color:#fff;">
-			<div class="straw">
-			<div class="berry"></div>
-			<div style="height:0px;width:0px;"><div class="tape"><text>elliott's</text></div></div>
-			</div>
-		</div>
-		<div style="margin-top:17px;margin-bottom:10px;">
-		<p style="margin-bottom:0px;">Hello, dolls! I hope you enjoy your time visiting this tiny internet home of mine that I created myself. As time goes on, I want to use this website as a time capsule to preserve everything that is dear to me, keeping "alive" the essence of the little girl I once was. <a href="https://hmln.neocities.org/about" class="lrn">learn more?</a></p>
-		</div>
-				
-		<div class="ntpd" style="padding-top:3px;">
-		<div class="row">
-		<div class="column left" style="width:20%;padding:0px;">
-			<img align="left" width="100%" src="media/foollovers-w20-icon-mail.gif" style="margin:6px;margin-left:0px;margin-right:0px;">
-		</div>
-		<div class="column right" style="text-align: center;width:80%;padding-top:5px;">
-			<b>need to contact?</b>
-			<p style="transform:rotate(0.05deg);line-height:1.0;margin:0px;">you may <a href="mailto:minbunori@gmail.com">email</a> me or comment on my <a href="https://neocities.org/site/hmln/">profile</a>!</p>
-		</div>
-		</div>
-		</div>
-		</div>
-		</div>
-</div>
-</div>
+<body>
 
-	<div class="float">
-<div class="pinkp">
- <p>hey<br>there!</p>
-</div>
-	</div>
 
-<div class="row" style="margin-bottom:10px;">
-<div class="column left" style="width:30%;height:100%;">			
-<div class="ntpd linkies">
-	<p>site button</p>
-	<div style="background-color:#FCF9F6;padding:5px;border-radius:5px;margin-top:5px;">
-	<div class="row">
-	<div class="column left" style="width:50%;padding-right:2.5px;">
-		<a href="https://hmln.neocities.org/" target="_blank"><img src="https://hmln.neocities.org/button.png" width="100%"></a>
-	</div>
-	<div class="column right" style="width:50%;padding-left:2.5px;">
-		<textarea class="hiddenscroll txta">&lt;a href="https://hmln.neocities.org/" target="_blank"&gt;&lt;img src="https://hmln.neocities.org/button.png"&gt;&lt;/a&gt;</textarea>
-	</div>
-	</div>
-		let me know if you linked me and would like to be linked back!
-	</div>
-</div>
-
-<div class="asulb">
-	<div class="asuli">
-				<font class="frmh">
-			<text style="color:#CEDDAA;">o</text>
-			<text style="color:#FFC8E2;">u</text>
-			<text style="color:#FBE9C9;">t</text>
-			<text style="color:#D5E9F3;">s</text>
-			<text style="color:#CEDDAA;">i</text>
-			<text style="color:#FEFFE7;">t</text>
-			<text style="color:#CEDDAA;">e</text>
-				</font>
-	<hr style="margin:3px;margin-left:0px;margin-right:0px;border:1px dashed #ededed;border-bottom:0px;">
-<a href="https://minbunori.atabook.org/">guestbook</a><br>
-<a href="https://neocities.org/site/hmln">neocities profile</a><br>
-<a href="https://listography.com/ringo">listography</a>
-	</div>
-</div>
-
-</div>
-<div class="column right" style="width:70%;height:100%;padding-top:10px;">
-	<div class="frmo">
-		<div class="frmi">
-<div id="updates" class="town w3-animate-opacity" style="display:block;">
-		<div class="shadow">
-			<font class="frmh">
-			<text style="color:#CEDDAA;">u</text>
-			<text style="color:#FFC8E2;">p</text>
-			<text style="color:#FBE9C9;">d</text>
-			<text style="color:#D5E9F3;">a</text>
-			<text style="color:#CEDDAA;">t</text>
-			<text style="color:#FEFFE7;">e</text>
-			<text style="color:#CEDDAA;">s</text>
-			</font>
-		</div>
-		<div class="wbf">
-		<div class="color wb">
-			<p><b>2025年1月4日</b> <span>update</span> Happy new year! I did minor changes such as updating the little ID at the bottom, new buttons in #sites and small text changes in the front page. Apologies there aren't much changes during these past months as I'm still adjusting to a new city and now in my 1st year of college! It's trimester so most of my time is spent on outputs and the little time is left to meeting up friends and playing games as a break from school.</p>
-			<p><b>2024年6月23日</b> <span>update</span> Updated the contents of this page since I realized I left out some information I wanted to write in here.</p>
-			<p><b>2024年6月23日</b> <span>update</span> New layout! temporary page for #art gallery just to give something new...</p>
-			<p><b>2024年6月20日</b> <span>logs</span> So a few days ago... haha :'] I finally got to drawing my own images to start my plan but I made a mistake so my motivation shrunk... if you ever see the new layout now, just know there'll be minor adjustions (it'll just be the images but yea!) to suit the theme i originally wanted to go for ;;;; I also had the worry if I wanted to include horror, I might have to make a separate page for warning before one can get to the main page? I don't want to accidentally put someone off by surprise :( not that I think i'll do a good job at horror but still &gt;&lt;</p>
-			<p><b>2024年6月6日</b> <span>logs</span> ...An embarassing amount of time passed but im working on it again but if anything, I just graduated from high school this may and heading to college soon! I'll be studying Multimedia Arts QAQ!!! </p>
-			<p><b>2023年11月15日</b> <span>logs</span> Started working on the new layout for this site, balling it again as always with no proper plan/image in mind</p>
-			<p><b>2024年4月25日</b> <span>update</span> Fixed the pages and links! All images should appear by now :]</p>
-			<p><b>2023年8月11日</b> <span>update</span> Added about me page. I might re-do the whole main page while at it too now that ive kinda gotten more familiar with coding now?</p>
-			<p><b>2023年8月9日</b> <span>logs</span> Working on left side bar now. I kinda have an idea what i'd like my site to be now, I really miss how sites and games I used to play look so i hope to have a bit of that in here :)... in well future pages, not here! almost forgot to mention I edited the center page again.</p>
-			<p><b>2023年8月8日</b> <span>update</span> I'm really happy with how its turning out so far, ive created the to-do-list and credit section today! finished center part!</p>
-			<p><b>2023年8月7日</b> <span>logs</span> Day I started working on creating this site. Honestly still not sure what kind of look I'd like here... so I really am just truly messing around and finding out what ever im doing results in. I say this but I get giddy each time it turns out looking nice before falling back into despair on the next things to do lol</p>
-		</div>
-		</div>
-</div>
-<div id="links" class="town w3-animate-opacity" style="display:none;">
-		<div class="shadow">
-			<font class="frmh">
-			<text style="color:#CEDDAA;">n</text>
-			<text style="color:#FFC8E2;">e</text>
-			<text style="color:#FBE9C9;">i</text>
-			<text style="color:#D5E9F3;">g</text>
-			<text style="color:#CEDDAA;">h</text>
-			<text style="color:#FEFFE7;">b</text>
-			<text style="color:#CEDDAA;">o</text>
-			<text style="color:#FFC8E2;">r</text>
-			<text style="color:#FBE9C9;">s</text>
-			</font>
-		</div>
-		<div class="wbf">
-		<div class="color wb">
-			<p>here are buttons of fellow internet neighbors and sites i adore. please let me know if your button is missing or not updated ( QAQ)9!!!</p>
-		<div class="buttons">
-			<a href="https://kkiouji.neocities.org"><img src="button/kkiouji.gif" alt="kkiouji"></a>
-			<a href="https://fishstew.neocities.org/"><img src="button/fishstewbutton.gif"></a> 
-			<a href="https://arutemu64.neocities.org/" target="_blank"><img src="button/arutemu64.gif"></a>
-			<a href="https://thingamabob.neocities.org/"><img src="button/thingamabob.png" width="88px"></a>  
-			<a href="https://shrimpfriedeggs.neocities.org/"><img src="button/shrimpfriedeggs.gif"> </a>
-			<a href="https://cloverbell.neocities.org/" target="blank"><img src="button/cloverbell.gif"></a> 
-			<a href="https://touhouproject.neocities.org"><img src="button/touhouproject.gif"></a> 
-			<a href="https://milk-tea.neocities.org/" target="_blank"><img src="button/milk-tea.gif"></a>
-			<a href="https://yotsu.neocities.org/"><img src="button/yotsu.gif"></a>
-			<a href="https://goooby.neocities.org/"><img src="button/goooby.gif"></a>
-			<a href="https://mofupan.neocities.org/" target="_blank"><img src="button/mofupan.gif"></a>
-			<a href="https://sealredglasses.neocities.org/"><img src="button/sealredglasses.gif" height="25px"></a>
-			<a href="https://earedworm.neocities.org/" target="_blank"><img src="button/earedworm.gif"></a>
-			<a href="https://shuripurin.neocities.org/" target="_blank"><img src="button/shuripurin.gif"> </a>
-		</div>
-			<a onclick="openTown('updates')" class="gbk" style="margin-top:2px;">go back?</a>
-		</div>
-		</div>
-</div>
-<div id="credits" class="town w3-animate-opacity" style="display:none;">
-		<div class="shadow">
-			<font class="frmh">
-			<text style="color:#CEDDAA;">c</text>
-			<text style="color:#FFC8E2;">r</text>
-			<text style="color:#FBE9C9;">e</text>
-			<text style="color:#D5E9F3;">d</text>
-			<text style="color:#CEDDAA;">i</text>
-			<text style="color:#FEFFE7;">t</text>
-			<text style="color:#CEDDAA;">s</text>
-			</font>
-		</div>
-		<div class="wbf">
-		<div class="color wb">
-			<p><b>note:</b> please note that as this site is ongoing, this area will continue to update! if there are i missed to list or not working links, please let me know! <a onclick="openTown('updates')" class="gbk">go back?</a></p>
-			<p><a href="http://www.fancyparts.com/index.html">@fancyparts</a> background images</p>
-			<p><a href="https://foollovers.com/index.html">@foollovers</a> background images, borders and code</p>
-			<p><a href="http://sozaioukoku.fc2web.com/">@sozaioukoku</a> background images</p>
-			<p><a href="https://store.line.me/emojishop/author/1085120/en">@yuri of yuriyuri</a> cute leopard gecko LINE emoji set</p>
-			<p><a href="https://store.line.me/stickershop/author/94415/en">@fancy surprise</a>  "usapoppo" LINE emojis</p>
-			<p><a href="https://store.line.me/stickershop/author/118304/en">@himalaya</a> girl and bunny LINE emojis</p>
-			<p><a href="https://store.line.me/themeshop/author/92480/en">@nintendo</a> animal crossing LINE stickers and pngs</p>
-		</div>
-		</div>
-</div>
-		</div>
-	</div>
-<div class="float"><div class="credits"><a onclick="openTown('credits')">credits</a></div></div>
-<div class="float"><div class="plush"><a onclick="openTown('links')">sites</a></div></div>
-<div class="float"><div class="gecko"></div></div>
-<div class="float"><div class="stars"></div></div>
-<div class="float"><div class="blathers"></div>
-
-</div>
-</div>
-</div>
-
-<div class="row">
-<div class="column left" style="width:70%;">
-    <div class="idb">
-        <div class="idh">
-          <font class="pinkid"> STUDENT IDENTIFICATION CARD</font>
-        </div>
-    <div class="row" style="padding:10px;">
-    <div class="column left" style="width:35%;">
-        <div class="idframe">
-        </div>
+    <!-- bubble -->
+    <div id="bubble">
+    
+    <p>What's Megan up to?</p>
+    
     </div>
-    <div class="column right" style="width:65%;">
-        <div class="row">
-        <div class="column left" style="font-size:10px;width:33%;">NAME </div>
-        <div class="column right" style="width:67%;"><b>Elliott</b></div>
+    
+    
+    <!-- kawa1 -->
+    <div id="chiikawa1"></div>
+    
+    
+    
+    <div id="outer">
+    <div id="main">
+        
+        <div class="wrapper">
+            
+        <!-- left -->
+        <div id="left">
+        
+            <!-- box1 -->
+            <div id="box1">
+            <div class="toplace" style="background-position: -3px 0px"></div>
+             
+                <!-- status cafe -->
+                <div id="statuscafe"><div id="statuscafe-username"><a href="https://status.cafe/users/ribbondoll" target="_blank">ribbondoll</a> 🍦 4 hours ago</div><div id="statuscafe-content">i love abbott elementary</div></div><script src="https://status.cafe/current-status.js?name=ribbondoll" defer=""></script>
+                
+                <img src="index/pearldiv.png" style="width: 90%; margin: auto; margin-top: 10px; margin-bottom: -1px; filter: brightness(110%) drop-shadow(0px 1px #D1B9B3)">
+                
+                <!-- lastfm -->
+                <div id="lastfm">
+                    
+                <div id="lastfmwrapper"> 
+                    
+                <div id="lastfmimgbox">    
+                <img id="trackart" src="https://lastfm-img.freetls.fastly.net/i/u/174s/32158f007b3a5514ba78c226c506916c.jpg">
+                </div>    
+                    
+                <div class="trackInfo">
+                
+                <p> ♫ listening to :</p>
+                    
+                <marquee scrollamount="1">   
+                
+                <a id="tracktitle" data-toggle="tooltip" title="Singing In The Rain by Loona" href="https://www.last.fm/music/Loona/_/Singing+In+The+Rain" target="_blank" class="">Singing In The Rain</a> ♡ <a href="#" id="trackartist" data-toggle="tooltip" title="Artist : Loona">Loona</a>
+                    
+                </marquee>
+                    
+                </div>
+                    
+                </div>    
+                  
+                </div>
+                <script src="index/lastfm.js" defer=""></script>
+                
+            </div>
+            
+            
+            <!-- sidebar -->
+            <div id="sidebar">
+            
+                
+            <!-- navi -->    
+            <div id="navi">
+            
+                <!-- title -->
+                <div class="ntitle">
+                Navigation <img src="index/pheart.gif" style="height: 12px; margin-right: 12px; margin-top: 3px; filter: brightness(110%)">
+                </div>
+            
+                
+                <!-- sitemap -->
+                <a class="navbutton" href="sitemap.html">
+                
+                    <p>Sitemap</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                <!-- about -->
+                <a class="navbutton" href="about.html">
+                
+                    <p>About Me</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                <!-- diary -->
+                <a class="navbutton" href="diary.html">
+                
+                    <p>Diary</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                <!-- shrines -->
+                <a class="navbutton" href="shrines.html">
+                
+                    <p>Shrines</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                <!-- collection -->
+                <a class="navbutton" href="collection.html">
+                
+                    <p>Collections</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                <!-- fujo -->
+                <a class="navbutton" href="fujod.html">
+                    
+                    <p>Fujo Diaries</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                <!-- game ids -->
+                <a class="navbutton" href="gameids.html">
+                
+                    <p>Game IDs</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                
+                
+                <!-- title -->
+                <div class="ntitle" style="border-top: 1px solid #FFB0C9">
+                Off-Site <img src="index/pheart.gif" style="height: 12px; margin-right: 12px; margin-top: 3px; filter: brightness(110%)">
+                </div>
+            
+                <a class="navbutton" href="https://www.instagram.com/rabbit__xx6/" target="_blank">
+                
+                    <p>Instagram</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                <a class="navbutton" href="https://x.com/joseimeuke" target="_blank">
+                
+                    <p>Twitter</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+                <a class="navbutton" href="https://neocities.org/site/ribbondoll">
+                
+                    <p>Neocities Profile</p>
+                    
+                    <img src="index/bow.png">
+                    
+                </a>
+                
+            </div>
+            
+            
+            <!-- update log -->    
+            <div id="updatelog">
+                
+            <p id="logtitle">update log</p>
+                
+            <div id="logbox">
+                
+                <p>04.06.26 about page refresh</p>
+                
+                <p>03.03.26 updated fujo &amp; collection pages</p>
+                
+                <p>01.15.26 finished slow damage shrine</p>
+                
+                <p>01.09.26 revamped status cafe</p>
+                
+                <p>01.02.26 made a few minor changes</p>
+                
+                <p>12.20.25 tweaked game ids page a bit</p>
+                
+                <p>12.05.25 finally finished collection page</p>
+                
+                <p>12.03.25 made akihiko shrine <s>finally!</s></p>
+                
+                <p>12.01.25 finished diary page</p>
+                
+                <p>10.31.25 finished game ids page</p>
+                
+                <p>10.27.25 finished sitemap</p>
+                
+                <p>10.08.25 finished fujo diaries</p>
+                
+                <p>09.19.25 finished about page</p>
+                
+                <p style="border-bottom: 0px"> 09.16.25 finished index </p>
+                
+            </div>    
+                
+            </div>
+                
+                
+            <!-- todo list -->
+            <div id="todolist">
+            
+                <p id="todotitle">
+                to-do list
+                </p>
+                
+                <div id="todoscroll">
+                
+                    <p>make shrine homepage</p>
+                    
+                    <p>make <s>aki</s>, ryuu, + other shrines</p>
+                    
+                    <p>make kpop page</p>
+                    
+                    <p><s>finish collection page</s></p>
+                    
+                    <p><s>remake about page</s></p>
+                    
+                </div>
+                
+            </div>    
+                 
+            
+            <!-- chiikawa head -->    
+            <div id="chiikawa2"></div>    
+                
+            </div>
+            
+            
         </div>
-        <hr style="border:1px solid #E6D0C2;border-bottom:0px;">
-        <div class="row">
-        <div class="column left" style="font-size:10px;width:33%;">Year</div>
-        <div class="column right" style="width:67%;">1st Year</div>
+        
+        
+        <!-- right -->
+        <div id="right">
+            
+            <!-- header -->
+            <div id="header">
+            
+            <p id="headertitle">Welcome to RibbonDoll</p>
+                
+            
+            </div>
+            
+            <!-- main box -->
+            <div id="mainbox">
+            
+                <!-- left box -->
+                <div id="r1">
+                
+                    <!-- welcome -->
+                    <div id="welcome"><div id="welcome2">
+                    
+                        <div class="toplace" style="background-position: 11px 0px"></div>
+                        
+                        <p style="text-align: left; width: 440px; line-height: 1.2">
+                        
+                        <img src="index/mymelo.jpg" id="mymelo">
+                        
+                            hello and welcome to RibbonDoll, my personal virtual paradise! <br>
+                            i'm Megan, but i also go by Meggie, and i'm the webprincess of Ribbondoll ♥ i'm 21 and i made this webpage to express myself and share my interests. 
+                            
+                            <br><br>
+                            
+                            i don't mind if you take inspiration or copy small parts of my code, just don't completely rip my site. i'm also a self taught coder so my pages might not be optimized, sorry. some of my biggest inspirations are <a href="https://nyaa.neocities.org/" target="_blank">nyaa</a>, <a href="https://monsieurdoll.neocities.org/" target="_blank">monsieurdoll</a>, and <a href="https://www.valentinely.cc/" target="_blank">valentinely</a>
+                            <img src="index/melomelo.gif" style="display: inline; margin-bottom: -5px; margin-left: 2px"><img src="index/heart.gif" style="display: inline; margin-bottom: -5px; height: 18px; margin-left: 2px">
+                            
+                        </p>
+                        
+                        <hr>
+                        
+                        <p style="text-align: center; width: 410px; line-height: 1.2; margin: auto; margin-top: 13px;">
+                        
+                            i code using a 2880 x 1800 resolution laptop, google chrome, and brackets. <br> please avoid viewing RibbonDoll on mobile or other browsers. enjoy your stay ♥ 
+                            
+                            <br>
+                            
+                            <img src="index/chrome.png" style="margin-top: 10px;">
+                            
+                        </p>
+                        
+                        
+                    </div></div>
+                    
+                  
+                    <img src="index/pearldiv.png" style="width: 90%; margin: auto; margin-top: 3px; margin-bottom: 5px; filter: brightness(110%) drop-shadow(0px 1px #D1B9B3)">
+                    
+                    
+                    <!-- bottom -->
+                    <div id="bottombox">
+                    <div id="bottombox2">
+                        
+                    <p>
+                    
+                        <span> ❀ contact info :</span>
+                            
+                            <br><br>
+                            
+                             i'm most active on instagram and twitter, so it's easiest to contact me there. if you don't use those you can also leave a comment on my profile or <a href="mailto:ribbondoll.neocities@gmail.com">mail</a> me. i may take a little while to respond due to my anxiety, thank you for understanding.
+                        
+                            <br><br>
+                        
+                    </p>
+                        
+                    </div></div>
+                    
+                    
+                    <!-- fun stuff -->
+                    <div id="funstuff">
+                    
+                        
+                    <!-- poll -->    
+                    <form method="post" action="https://poll.pollcode.com/46172335"><div id="pollbox">
+                        
+                    <div id="polltitle"><p>favorite reve solo ?</p></div>
+                        
+                    <div id="pollscroll">    
+                        
+                    <input type="radio" name="answer" value="1" id="answer461723351" style="float:left;" class="pollanswer"><label for="answer461723351" style="float:left;width:150px;">like water</label>
+                        
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="2" id="answer461723352" style="float:left;" class="pollanswer"><label for="answer461723352" style="float:left;width:150px;">hello</label>
+                        
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="3" id="answer461723353" style="float:left;" class="pollanswer"><label for="answer461723353" style="float:left;width:150px;">28 reasons</label>
+                        
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="4" id="answer461723354" style="float:left;" class="pollanswer"><label for="answer461723354" style="float:left;width:150px;">wish you hell</label>
+                        
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="5" id="answer461723355" style="float:left;" class="pollanswer"><label for="answer461723355" style="float:left;width:150px;">like a flower</label>
+                       
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="6" id="answer461723356" style="float:left;" class="pollanswer"><label for="answer461723356" style="float:left;width:150px;">baby, not baby</label>
+                        
+                    <br><br>
+                        
+                    <input type="radio" name="answer" value="7" id="answer461723357" style="float:left;" class="pollanswer"><label for="answer461723357" style="float:left;width:150px;">sunkiss</label>
+                        
+                    <br><br>    
+                        
+                    <input type="radio" name="answer" value="8" id="answer461723358" style="float:left;" class="pollanswer"><label for="answer461723358" style="float:left;width:150px;">love splash!</label>
+                         
+                    <br><br>    
+                        
+                    <input type="radio" name="answer" value="9" id="answer461723359" style="float:left;" class="pollanswer"><label for="answer461723359" style="float:left;width:150px;">biggest fan</label>
+                        
+                    <br><br>    
+                        
+                    </div>    
+                    <div style="clear:both;height:2px;"></div><div align="center" style="padding:3px;"><input type="submit" value=" Vote " class="pollbutton">&nbsp;<input type="submit" name="view" value=" View " class="pollbutton"></div>
+                        
+                    <div align="right" style="font-size:10px">pollcode.com <a href="https://pollcode.com/">free polls</a></div></div></form>    
+                        
+                    <img src="index/pencil.png" id="pencil">     
+                        
+                    <!-- cbox -->    
+                    <iframe src="https://www3.cbox.ws/box/?boxid=3543701&amp;boxtag=sEhNGi" style="width: 220px; height: 280px; border: 1px solid #D1B9B3; border-radius: 14px;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>	    
+                        
+                    <!-- cboxlace -->
+                    <div id="cboxwhite"></div>
+                    <div class="toplace" id="cboxlace" style="background-position: -13px 0px">
+                    <p>♥ comment box ♥</p>    
+                    </div>   
+                    
+                        
+                    <!-- bubble 2 -->    
+                    <div id="bubble2">
+                    
+                        <p>
+                        be kind, rude comments will be deleted
+                        </p>
+                        
+                    </div>    
+                        
+                        
+                    </div>
+                    
+                    
+                </div>
+            
+                
+                <!-- right box -->
+                <div id="r2">
+                
+                    
+                    <!-- neighborhood -->
+                    <p id="neighbortitle">
+                    neighborhood
+                    </p>
+                
+                    <div id="neighborhood">
+                           
+                        
+                    <div id="neighborhood2">
+                    <div id="nh">
+                    
+                        <!-- 2cherrish -->
+                        <a href="https://2cherrish.neocities.org/" target="_blank"><img src="buttons/2cherrish.gif" class="site"></a>
+                        
+                        <!-- allyratworld -->
+                        <a href="https://allyratworld.com/" target="_blank"><img src="buttons/allyratworld.png" class="site"></a>
+                        
+                        <!-- angelovin -->
+                        <a href="https://angelovin.neocities.org" target="_blank"><img src="buttons/angelovin.gif" class="site"></a>
+                        
+                        <!-- blueberry muffins -->
+                        <a href="https://blueberrymuffinss.neocities.org/" target="_blank"><img src="buttons/blueberrymuffins.png" class="site"></a>
+
+                        <!-- bluecaet -->
+                        <a href="https://bluecaet.neocities.org/" target="_blank"><img src="buttons/bluecaet.png"></a>
+                        
+                        <!-- bugkisser -->
+                        <a href="https://bugkisser.neocities.org/" target="_blank"><img src="buttons/bugkisser.png" class="site"></a>
+
+                        <!-- cloverlover -->
+                        <a href="https://cloverlover.neocities.org/" target="_blank"><img src="buttons/cloverlover.gif" class="site"></a>
+                        
+                        <!-- comfort -->
+                        <a href="https://comfort.neocities.org/" target="_blank"><img src="buttons/comfort.gif" class="site"></a>
+                        
+                        <!-- fuchi -->
+                        <a href="https://fuchi.neocities.org/" target="_blank"><img src="buttons/fuchi.jpeg" class="site"></a>
+                        
+                        
+                        <!-- ginder -->
+                        <a href="https://ginder.neocities.org/angelcity" target="_blank"><img src="buttons/angelcity.png" class="site" style="border-radius: 14px;"></a>
+                        
+                        <!-- goooby -->
+                        <a href="https://goooby.neocities.org/" target="_blank"><img src="buttons/goobie.gif" class="site"></a>
+                        
+                        <!-- hachiware -->
+                        <a href="https://hachiwa.re/" target="_blank"><img src="https://hachiwa.re/static/ext/button.png" class="site"></a>
+                        
+                        <!-- kkul -->
+                        <a href="https://kkul.neocities.org/" target="_blank"><img src="buttons/kkulbutton.gif" class="site"></a>
+                        
+                        <!-- lacepicnic -->
+                        <a href="https://lacepicnic.neocities.org/" target="_blank"><img src="buttons/lacepicnic.gif" class="site"></a>
+                        
+                        <!-- lazerbunny -->
+                        <a href="https://lazer-bunny.neocities.org/" target="_blank"><img src="buttons/lazerbunny.gif" class="site"></a>
+                        
+                        <!-- melokaji -->
+                        <a href="https://melokaji.neocities.org/" target="_blank"><img src="buttons/melokaji.gif" class="site"></a>
+                        
+                        <!-- milktea -->
+                        <a href="https://milk-tea.neocities.org/" target="_blank"><img src="buttons/milktea.gif" class="site"></a>
+                        
+                        <!-- monsieurdoll -->
+                        <a href="https://monsieurdoll.neocities.org/" target="_blank"><img src="buttons/monsieurdoll.png" class="site"></a>
+                        
+                        <!-- nyaa -->
+                        <a href="https://nyaa.neocities.org/" target="_blank"><img src="buttons/nyaa.gif" class="site"></a>
+
+                        <!-- pawpyrus -->
+                        <a href="https://pawpyrus.art/" target="_blank"><img src="buttons/pawpyrus.gif" class="site"></a>
+                        
+                        <!-- philia995 -->
+                        <a href="https://philia995.neocities.org/" target="_blank"><img src="buttons/philia995.gif" class="site"></a>
+                        
+                        <!-- pii -->
+                        <a href="https://pii.neocities.org/" target="_blank"><img src="buttons/pii.png"></a>
+                        
+                        <!-- raisu -->
+                        <a href="https://raisu.neocities.org/" target="_blank"><img src="buttons/imari.gif" class="site"></a>
+                        
+                        <!-- reji -->
+                        <a href="https://reij.neocities.org" target="_blank"><img src="buttons/reji.gif" class="site"></a>
+                        
+                        <!-- rhinedottir -->
+                        <a href="https://rhinedottir.neocities.org/" target="_blank"><img src="buttons/rhinedottir.png" class="site"></a>
+                        
+                        <!-- sunfishdreamworld -->
+                        <a href="https://sunfishdreamworld.neocities.org" target="_blank"><img src="buttons/sunfishdreanworld.gif" class="site"></a>
+
+                        <!-- sweetpea -->
+                        <a href="https://sweet-pea.neocities.org" target="_blank"><img src="buttons/sweetpea.gif" class="site"></a>
+
+                        <!-- underwhite -->
+                        <a href="https://underwhite.neocities.org/" target="_blank"><img src="buttons/underwhite.gif" class="site"></a>
+                        
+                        <!-- valentinely -->
+                        <a href="https://www.valentinely.cc/" target="_blank"><img src="buttons/valentinely.png" class="site"></a>
+                        
+                        <!-- watakoii -->
+                        <a href="https://watakoii-chiquitoblog.neocities.org/" target="_blank"><img src="buttons/watakoii.gif" class="site"></a>
+                        
+                        
+                    </div>
+                    </div>   
+                        
+                    <p style="margin-top: 3px; margin-bottom: 0px;">my buttons ♥ let me know if you link me</p>
+                        
+                    <div class="wrapper" style="align-content: center; justify-content: center;">    
+                        
+                    
+                    <div style="image-rendering: pixelated; margin: auto; margin-top: 5px; margin-left: -1.5px; margin-right: 3px;">
+                        <a href="index/DONOTHOTLINK3.gif" download="DONOTHOTLINK3"><img src="index/DONOTHOTLINK3.gif" title="click to download!" style="height: 28px;"></a>
+                    </div>     
+                        
+                        
+                    <div style="image-rendering: pixelated; margin: auto; margin-top: 5px; margin-left: 0px; margin-right: 3px;">
+                        <a href="index/DONOTHOTLINK.gif" download="DONOTHOTLINK"><img src="index/DONOTHOTLINK.gif" title="click to download!" style="height: 28px;"></a>
+                    </div>     
+                        
+                    <a href="index/DONOTHOTLINK2.gif" download="DONOTHOTLINK2"><img src="index/DONOTHOTLINK2.gif" style="width: 78px; height: 28px; margin-top: 5px;" title="click to download!"></a>    
+                        
+                    </div>    
+                        
+                    </div>
+                    
+                
+                    <!-- fanlists + webrings -->
+                    <div id="flwb">
+                   
+                        
+                        
+                        <!-- webrings -->
+                        <p id="wbtitle">webrings</p>
+                        <div id="webrings">
+                        
+                            <br>
+                            
+                            <!-- yume -->
+                            <div id="yumering">
+                            <a href="https://yume-ring.neocities.org/" target="_blank"><img src="index/yumering.png" title="graphic by me"></a>
+                                
+                                
+                            <p>
+                            <a href="https://gasmaskhoney.neocities.org/">← prev</a>
+                                
+                            ♡ yume-ring ♡ 
+                                
+                            <a href="https://criticalhit.neocities.org/">next →</a>
+                            <a></a> 
+                            </p>   
+                                
+                            </div>
+                            
+                            <!-- idolring -->
+                            <div id="IDOLRING_WIDGET" style="zoom: 90%">
+                                <link rel="stylesheet" href="https://idolring.nekoweb.org/idolring.css">
+                                <table class="idolring_small" id="pink">
+                                    <tbody><tr>
+                                        <td class="small_prev">
+                                            <a href="https://idolring.nekoweb.org/index.html?action=previous">prev
+                                                <div class="idol_prev" id="prev_pink"></div></a>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div id="small_title" style="margin-bottom: 4px">
+                                                <u><a href="https://idolring.nekoweb.org/index.html">idolring</a></u>
+                                            </div>
+                                            <a href="https://idolring.nekoweb.org/index.html?action=random"><div class="oshifan">
+                                                    <img src="index/fan.png" class="fan" id="fan_image">
+                                                    <div id="oshi" style="background-image: url(&quot;index/ryuu.jpg&quot;);"></div></div></a>
+                                        </td>
+                                        <td class="small_next">
+                                            <a href="https://idolring.nekoweb.org/index.html?action=next">next
+                                                <div class="idol_next" id="next_pink"></div></a>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                                <script>
+                                    document.getElementById("oshi").style.backgroundImage = "url('index/ryuu.jpg')";
+                                    document.querySelector("[src='https://idolring.nekoweb.org/assets/fan_pink.png']").src="index/fan.png";
+                                </script>
+                                
+                            </div>
+                            
+                            <br>
+                            
+                            <!-- cookie run -->
+                            <div class="wrapper" style="margin: auto; align-content: center; justify-content: center">
+                            
+                                <p style="margin-top: 30px;">
+                                <a href="https://evehibi.nekoweb.org/ckwr/?action=previous">← prev</a>
+                                ♡    
+                                </p>
+                                
+                                <a href="https://evehibi.nekoweb.org/ckwr/" target="_blank">
+                                <img src="index/parfait.png" style="width: 60px" title="cookie run webring ♡">
+                                </a>
+                                
+                                <p style="margin-top: 30px;">
+                                ♡
+                                <a href="https://evehibi.nekoweb.org/ckwr/?action=next">next →</a>    
+                                </p>
+                            
+                            </div>
+                               
+                            <br>
+                            
+                            <!-- shoujosei cafe -->
+                            <div id="shoujosei-ring">
+  <div class="shoujosei-ring">
+  <a href="https://cherie.nekoweb.org/" target="_top"><img src="https://angeleyesprings.neocities.org/webring/cakeLogoAL.png"></a> 
+  <a href="https://angeleyesprings.neocities.org/webring/shoujosei" target="_top"><img src="https://angeleyesprings.neocities.org/webring/cakeLogo.gif" class="shoujosei-ring-image" title="Click here to go to the ShouJosei CafÃƒÂ© index!"></a>
+  <a href="https://kakikudoku.neocities.org" target="_top"><img src="https://angeleyesprings.neocities.org/webring/cakeLogoAR.png"></a>
+  </div>
+  
+  <script type="text/javascript" src="https://angeleyesprings.neocities.org/webring/onionring-variables.js"></script>
+  <script type="text/javascript" src="https://angeleyesprings.neocities.org/webring/onionring-widget5.js"></script>
+  </div>
+                            
+                            <br>
+                            
+                            
+                            <!-- self insert -->
+                            <div id="selfinsertwebring">
+				            <script src="index/showWebring.js"></script><selfinsertwebring><style> #templateWebring a {color: #86b8b8; font-weight:bold} #templateWebring a:hover{font-weight:bold; color:#6d9999}  #templateWebring {width:176px !important; text-align:center !important; height:115px !important; border:2px solid white !important; border-radius: 4px !important; margin: auto !important; background-image:url('stripebg.png'); background-size:4% !important; box-shadow: 0px 0px 7px inset #FFB0C990 !important; outline: 1px solid #FFB0C9 !important;} #webringiconbox {border: 1px solid #FFB0C9!important; border-radius: 4px !important; position:relative !important; overflow:hidden !important;   height:60px !important; width:60px !important; left:8px !important; padding:0px !important; margin:0px !important; margin-top:8px !important; box-sizing:content-box !important; max-width:100% !important; justify-content:start !important; display:block !important; clear:none !important } #iconWebring {width:60px !important; overflow:hidden !important; height:60px !important; margin:0px !important; padding:0px !important; box-sizing:content-box !important} #webringdescbox {width:85px !important; height:59px !important; margin-left:76px !important; margin-top:-62px !important; border:1px dashed #FFB0C9 !important; outline: 2px solid white !important; border-radius: 4px !important; background: white !important; box-shadow: 3px 3px #a3736750} #webringdesc{line-height: normal !important; font-weight:normal !important; padding:2px !important; width:80px !important; color:#a37367 !important; font-family: windows regular; !important; font-size:x-small !important; margin:auto !important; text-align:center !important; position:relative !important; top:50% !important;  -ms-transform: translateY(-50%) !important; -webkit-transform: translateY(-50%) !important; transform: translateY(-50%) !important;} #webringlinks {line-height:normal !important; font-weight:normal !important; width:155px !important; margin:auto !important; height:30px !important; margin-top:6px !important; border:1px dashed #FFB0C9 !important; outline: 2px solid white !important; border-radius: 4px !important; background: white !important; box-shadow: 3px 3px #a3736750} #linkparaWebring {font-family: windows regular; !important; color:#a37367 !important; font-size:xx-small !important; 	margin:auto !important; line-height: normal !important; text-align:center !important;	margin-top:3px !important; padding:0px !important} </style> <div id="templateWebring"> <div id="webringiconbox"> <img id="iconWebring" src="https://files.catbox.moe/d8i4pi.jpg"> </div> <div id="webringdescbox"> <p id="webringdesc"> <strong>meggie</strong> is totally in love with<br> <strong>aki</strong> from <strong>persona 3</strong>! </p> </div> <div id="webringlinks">	<p id="linkparaWebring"> ♡ <a href="https://webring.koinuko.pink/members.php" target="_PARENT">Members List</a> ♡ <br>	Part of the <a href="https://webring.koinuko.pink/members.php" target="_PARENT">Self-Insert Webring</a></p> </div> </div></selfinsertwebring>
+                            <div id="iconbox" title="art by noctilin"></div>
+                            </div>
+                            
+                            <br>
+                            
+                            <!-- fujoring -->
+                            <div id="fujoringout">
+    <link rel="stylesheet" href="https://pawpyrus.art/fujoringout/onionring/onionring.css">
+    <div id="fujoringout-wrapper">
+                    <h2 class="webring-otp">this webmaster is</h2>
+                    <div class="webring-otp1">
+                        <img id="otp-1" src="index/minami.png">
+                    </div>
+                    <div class="webring-heart">
+                        <img src="index/pheart.gif">
+                    </div>
+                    <div class="webring-otp2">
+                        <img id="otp-2" src="index/torao.png">
+                    </div>
+                    <div class="webring-prev">
+                        <a target="_blank" href="https://hitojyu.neocities.org/">← prev</a>
+                    </div>
+                    <div class="webring-title">
+                    <a href="https://fujoringout.nekoweb.org/index.html" target="_blank"><h1>fujoring out!</h1></a>
+                    </div>
+                    <div class="webring-info">
+                      <a target="_blank" href="javascript:void(0)" onclick="randomSite()">random</a>
+                    </div>
+                    <div class="webring-next">
+                        <a target="_blank" href="https://moldrio.neocities.org/">next →</a>
+                    </div>
+                </div>
+  
+                                <script type="text/javascript" src="https://pawpyrus.art/fujoringout/onionring/onionring-widget.js"></script>
+                                <script>document.getElementById('otp-1').src="index/minami.png"; document.querySelector("[src='https://pawpyrus.art/fujoringout/heart.png']").src="index/pheart.gif";</script> 
+                                <script>document.getElementById('otp-2').src="index/torao.png";</script> <!--replace IMG1 and IMG2 with URLs to the members of your OTP. Square images are preferred for the most ideal cropping-->
+                            </div>
+                        
+                            <br>
+                            
+                            <!-- fujofans -->
+                            <a href="https://fujofans.neocities.org/" target="_blank"> <img src="index/fujofans.png"> </a>
+                            
+                            
+                            <br><br>
+                            
+                            <!-- cafe rose -->
+                            <a href="https://allyratworld.com/cafe/rose" target="_blank" style="margin-top: 15px; margin-bottom: 10px"><img src="https://RibbonDoll.neocities.org/rose.png"></a>
+                            
+                            <br>
+                            
+                            <!-- made by a girl -->
+                            <a href="https://grrrl.valentinely.cc/" target="_blank">
+                            <div style="image-rendering: pixelated">
+                            <img src="index/madebyagirl.gif" style="margin-top: 10px; width: 80px">
+                            </div>    
+                            </a>
+                            
+                            
+                            <br>
+                            
+                            <!-- princess code -->    
+                            <a href="https://web.archive.org/web/20080702000153/http://princessportal.com/the-princess-code/" target="_blank"><img src="index/princesscode.gif" alt="The Princess Code" border="0" style="margin-top: 5px;"></a>
+                            
+                            <br><br>
+                              
+                            <!-- fujo/yume -->
+                            <a href="https://fujoshi.nekoweb.org/pages/clique/jodan.html" target="_blank"><img src="index/fujoshi.png" style="height: 20px;"></a>
+                            
+                            <a href="https://fujoshi.nekoweb.org/pages/clique/jodan.html" target="_blank"><img src="index/yumejoshi.png" style="height: 20px;"></a>
+                      
+                            <br><br>
+                            
+                            <!-- sanrio -->    
+                            <a href="https://sanrioness.neocities.org" target="_blank"><img src="index/iheartsanrio.gif"></a>   
+                            
+                            
+                            <!-- i choose you -->
+                            <a href="https://pkmn.aquarel.nu/" rel="noopener noreferrer" style="image-rendering: pixelated" title="i choose you ! | lopunny"><img src="index/lopunny.png" style="margin: auto; margin-left: 7px; height: 30px"></a>
+                            
+                            
+                            <!-- pixel friends -->
+                            <a href="https://ac.kuchiki.net/" target="new" style="image-rendering: pixelated"><img src="index/cookie.gif" title="pixel friends ♥ cookie"></a>
+                       
+                            <br>
+                            
+                            <!-- partner pokemon -->
+                            <a href="https://fan.lysandre.me/starters" target="_blank"><img src="index/fenn.gif" class="partner" title="My First Partner! ♥ Fennekin"></a>
+                            
+                             <a href="https://fan.lysandre.me/starters" target="_blank"><img src="index/piplup.gif" class="partner" title="My First Partner! ♥ Piplup"></a>
+                            
+                            
+                            
+                            <br><br>
+                            
+                        </div>
+                
+                        
+                        
+                        <!-- fanlists -->
+                        <p id="fltitle"> fanlists ♥ </p>
+                        
+                        <div id="fanlists">
+                        <div id="fanlists2">
+                        
+                            
+                        <!-- amana -->
+                        <a href="https://www.marheavenj.net/amana/" target="_blank"><img src="fanlists/amana.jpg" class="fanlist"></a>
+                    
+                        <!-- aya -->
+                        <a href="https://www.marheavenj.net/ayachan/" target="_blank"><img src="fanlists/aya.jpg" class="fanlist"></a>
+                    
+                        <!-- mika -->
+                        <a href="https://www.marheavenj.net/mika/" target="_blank"><img src="fanlists/mika.jpg" class="fanlist"></a>
+                    
+                        <!-- buneary -->
+                        <a href="https://pkmn.hoshi.nu/buneary/" target="_blank"><img src="fanlists/buneary.png" class="fanlist"></a>
+                    
+                        <!-- lopunny -->
+                        <a href="https://pkmn.hoshi.nu/lopunny/" target="_blank"><img src="fanlists/lopunny.png" class="fanlist"></a>
+                    
+                        <!-- umi -->
+                        <a href="https://www.marheavenj.net/umi/" target="_blank"><img src="fanlists/umi.jpg" class="fanlist"></a>
+                    
+                        <!-- nozomi -->
+                        <a href="https://www.marheavenj.net/nozomin/" target="_blank"><img src="fanlists/nozomi.jpg" class="fanlist"></a>
+                    
+                        <!-- aki -->
+                        <a href="https://akihiko.empty-cage.net/" target="_blank"><img src="fanlists/aki.png" class="fanlist"></a>
+                    
+                        <!-- rise -->
+                        <a href="https://www.kiri-no-hana.net/rise/" target="_blank"><img src="fanlists/rise.jpg" class="fanlist"></a>
+                    
+                        <!-- naoto -->
+                        <a href="http://fan.winterlantern.net/naoto/" target="_blank"><img src="fanlists/naoto.png" class="fanlist"></a>
+                    
+                        <!-- haruhi -->
+                        <a href="https://fan.kirai.org/haruhi/" target="_blank"><img src="fanlists/haruhi.png" class="fanlist"></a>
+                    
+                        <!-- ryuu -->
+                        <a href="https://www.marheavenj.net/ryunosuke/" target="_blank"><img src="fanlists/ryuu.jpg" class="fanlist"></a>
+                    
+                        <!-- rikkun -->    
+                        <a href="https://www.marheavenj.net/riku/" target="_blank"><img src="fanlists/riku.jpg" class="fanlist"></a>      
+                            
+                        <!-- tenn -->    
+                        <a href="https://www.marheavenj.net/tenn/" target="_blank"><img src="fanlists/tenn.jpg" class="fanlist"></a>     
+                            
+                        <!-- hua cheng -->    
+                        <a href="https://huacheng.whorehau.se/index.php" target="_blank"><img src="fanlists/fafa.png" class="fanlist"></a>    
+                        
+                        <!-- towa -->    
+                        <a href="https://towa.whorehau.se/" target="_blank"><img src="fanlists/towa.png" class="fanlist"></a>    
+                         
+                        <!-- rei -->    
+                        <a href="https://allyratworld.com/" target="_blank"><img src="fanlists/rei.png" class="fanlist" title="not actually a fanlist but the lil button was too cute ♡"></a>    
+                            
+                        <!-- usagi -->
+                        <a href="https://imaginary.nu/usagi/" target="_blank"><img src="fanlists/usagi.gif" class="fanlist"></a>
+                    
+                        <!-- chibiusa -->
+                        <a href="http://imaginary.nu/chibiusa/" target="_blank"><img src="fanlists/chibiusa.gif" class="fanlist"></a>
+  
+                        <!-- p3 -->
+                        <a href="https://fan.after-death.org/p3/" target="_blank"><img src="fanlists/p3.png" class="fanlist"></a>
+                    
+                        <!-- fe -->
+                        <a href="https://fire.norvrandt.org/fan/" target="_blank"><img src="fanlists/fe.png" class="fanlist"></a>
+                    
+                        <!-- pokemon -->
+                        <a href="https://amity.seaincense.com/" target="_blank"><img src="fanlists/pokemon.png" class="fanlist"></a>
+                    
+                        <!-- ac -->
+                        <a href="https://eku53ru.net/fl/ac/" target="_blank"><img src="fanlists/ac.gif" class="fanlist"></a>
+                    
+                        <!-- yaoi -->    
+                        <a href="https://kyou.nu/bl/" target="_blank"><img src="fanlists/yaoi.png" class="fanlist"></a>    
+                            
+                        <!-- hana -->
+                        <a href="https://kyou.nu/hanadan/" target="_blank"><img src="fanlists/hana.jpg" class="fanlist"></a>
+                    
+                        <!-- bof -->
+                        <a href="https://www.purifiedfiction.com/boysoverflowers/index.php" target="_blank"><img src="fanlists/bof.gif" class="fanlist"></a>
+                    
+                        <!-- twilight -->
+                        <a href="https://beatngu.altervista.org/twilight/" target="_blank"><img src="fanlists/twilight.png" class="fanlist"></a>
+                    
+                        <!-- twice -->
+                        <a href="https://coool.neocities.org/2129/" target="_blank"><img src="fanlists/twice.png" class="fanlist"></a>
+                    
+                        <!-- reve -->
+                        <a href="https://coool.neocities.org/rv/" target="_blank"><img src="fanlists/red%20velvet.png" class="fanlist"></a>
+                    
+                        <!-- loona -->
+                        <a href="https://loonathefanlisting.neocities.org/" target="_blank"><img src="fanlists/loona.png" class="fanlist"></a>
+                    
+                        <!-- looble -->
+                        <a href="https://newtopia.neocities.org/" target="_blank"><img src="fanlists/looble.png" class="fanlist"></a>
+                    
+                        <!-- shinee -->
+                        <a href="https://www.purifiedfiction.com/shinee/" target="_blank"><img src="fanlists/shinee.gif" class="fanlist"></a>
+                    
+                        <!-- vixx -->
+                        <a href="https://www.purifiedfiction.com/vixx/" target="_blank"><img src="fanlists/vixx.gif" class="fanlist"></a>
+                            
+                        </div></div>
+                        
+                    </div>
+                    
+                    
+                </div>
+                
+            </div>
+            
+            
+            
         </div>
-        <div class="row">
-        <div class="column left" style="font-size:10px;width:33%;">Birthdate </div>
-        <div class="column right" style="width:67%;">年5月6日</div>
         </div>
-        <div class="row">
-        <div class="column left" style="font-size:10px;width:33%;">ID No. </div>
-        <div class="column right" style="width:67%;">2501004</div>
-        </div>
-        <div style="font-size:11.5px;display:flex;height:70px;"><span style="align-self: flex-end;">This card confirms that this individual is a student of ###.</span></div>
+        
+        
+        <!-- bottom -->
+        <p style="text-shadow: 1px 0px white, 0px 1px white, -1px 0px white, 0px -1px white;">
+            <img src="index/pheart.gif"> 
+            
+            RibbonDoll.Neocities.org | Since Jan. 20th 2024
+            
+            <img src="index/pheart.gif">
+        </p>
+        
+        
     </div>
     </div>
-    </div>
-</div>
-<div class="column right" style="width:30%;">
-<div style="background-color:#FBE9C9;border:1px solid #CC9A81;padding:3px;border-radius:3px;">
-  <div class="box" style="margin-top:0px;padding:3px;border:1px solid #CC9A81;border-radius:3px;background-color:#fffff5;">
-  <h5 style="margin:0px;padding:4px;">to-do-list</h5>
-<ul style="margin:0px;padding:0px;margin-left:15px;">
-  <li>rework main page for mobile optimization</li>
-  <li>rework all site sections/pages</li>
-  <li>add music</li>
-</ul>
- </div>
-</div>
- 
-</div>
-</div>
-
-<div style="padding:5px;text-align:center;font-weight:bold;">
-	<div class="shadow" style="padding-top:10px;">
-	hmln.neocities.org © 2022-2024
-	</div>
-</div>
-	
-	</main>
- 
-</div>
-</div>
-</div>
-</div>
-			
-        <script type="text/javascript">
-			//Created by Title bar Maker (http://www.bosiljak.hr/titlemaker)
-			
-			function tb8_makeArray(n){
-			this.length = n;
-			return this.length;}
-
-			tb8_messages = new tb8_makeArray(1);
-			tb8_messages[0] = "boyoyoing";
-			tb8_rptType = 'infinite';
-			tb8_rptNbr = 5;
-			tb8_speed = 250;
-			tb8_delay = 1500;
-			var tb8_counter=1;
-			var tb8_currMsg=0;
-			var tb8_tekst ="";
-			var tb8_i=0;
-			var tb8_TID = null;
-			function tb8_pisi(){
-			tb8_tekst = tb8_tekst + tb8_messages[tb8_currMsg].substring(tb8_i, tb8_i+1);
-			document.title = tb8_tekst;
-			tb8_sp=tb8_speed;
-			tb8_i++;
-			if (tb8_i==tb8_messages[tb8_currMsg].length){
-			tb8_currMsg++; tb8_i=0; tb8_tekst="";tb8_sp=tb8_delay;
-			}
-			if (tb8_currMsg == tb8_messages.length){
-			if ((tb8_rptType == 'finite') && (tb8_counter==tb8_rptNbr)){
-			clearTimeout(tb8_TID);
-			return;
-			}
-			tb8_counter++;
-			tb8_currMsg = 0;
-			}
-			tb8_TID = setTimeout("tb8_pisi()", tb8_sp);
-			}
-			tb8_pisi()
-        </script>
-		
-		<script>
-		// <![CDATA[
-		var news=Array("Meow meow meowww!♪");
-		// var news=Array("This is the NEWS-TICKER TEXT EFFECT", "Brought to you by the good people at www.mf2fm.com/rv", "Did you note how the web-address was turned into a hyperlink?", "Another free effect "+String.fromCharCode(169)+"2004 onwards RV's free DHTML effects", "Check back from time to time to get the latest scripts...");
-		var cursor="_"; // set cursor
-		var delay=12; // seconds between each news item
-
-		/***************************\
-		* News Ticker Text Effect   *
-		*(c)2004-14 mf2fm web-design*
-		*  http://www.mf2fm.com/rv  *
-		* DON'T EDIT BELOW THIS BOX *
-		\***************************/
-		var newsp, cursp, flash, item=0;
-
-		if (typeof('addRVLoadEvent')!='function') function addRVLoadEvent(funky) {
-		  var oldonload=window.onload;
-		  if (typeof(oldonload)!='function') window.onload=funky;
-		  else window.onload=function() {
-			if (oldonload) oldonload();
-			funky();
-		  }
-		}
-
-		addRVLoadEvent(teleprint);
-
-		function teleprint () { if (document.getElementById) {
-		  var span=document.getElementById("greeting");
-		  while (span.childNodes.length) span.removeChild(span.childNodes[0]);
-		  delay*=4000; //default 1000
-		  newsp=document.createElement("span");
-		  cursp=document.createElement("span");
-		  cursp.appendChild(document.createTextNode(String.fromCharCode(160)+cursor));
-		  span.appendChild(newsp);
-		  span.appendChild(cursp);
-		  ticker();
-		}}
-
-		function ticker() {
-		  var i;
-		  while (newsp.childNodes.length) newsp.removeChild(newsp.childNodes[0]);
-		  newsp.appendChild(document.createTextNode(news[item].substring(0,1)));
-		  for (i=1; i<news[item].length; i++) setTimeout('newsp.firstChild.nodeValue="'+news[item].substring(0, i+1)+'"', 100*i);
-		  if (news[item].indexOf("wwww")!=-1) setTimeout('linkit('+item+')', 100*i);
-		  setTimeout('flash=setInterval("cursp.style.visibility=(cursp.style.visibility==\'visible\')?\'hidden\':\'visible\'", 444)', 100*i) //default 234
-		  setTimeout('clearInterval(flash)', delay);
-		  setTimeout('cursp.style.visibility="visible"', delay);
-		  setTimeout('ticker()', delay);
-		  item=++item%news.length;
-		}
-
-		function linkit(q) {
-		  var a,p,e,l;
-		  p=news[q].indexOf("www");
-		  e=news[q].indexOf(" ", p);
-		  if (e==-1) e=news[q].length;
-		  l=news[q].substring(p, e);
-		  while (newsp.childNodes.length) newsp.removeChild(newsp.childNodes[0]);
-		  newsp.appendChild(document.createTextNode(news[q].substring(0, p)));
-		  a=document.createElement("a");
-		  a.href="http://"+l;
-		  a.appendChild(document.createTextNode(l));
-		  newsp.appendChild(a);
-		  newsp.appendChild(document.createTextNode(news[q].substring(e)));
-		}
-		// ]]>
-		</script>
-
-		<script>
-		function myFunction() {
-		  var x = document.getElementById("myDIV");
-		  if (x.style.display === "none") {
-			x.style.display = "block";
-		  } else {
-			x.style.display = "none";
-		  }
-		}
-		</script>
-		
-		<script>
-		function openTown(townName) {
-		  var i;
-		  var x = document.getElementsByClassName("town");
-		  for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";  
-		  }
-		  document.getElementById(townName).style.display = "block";  
-		}
-		</script>
-		
-		<script>
-		function openCity(cityName) {
-		  var i;
-		  var x = document.getElementsByClassName("city");
-		  for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";  
-		  }
-		  document.getElementById(cityName).style.display = "block";  
-		}
-		</script>
-		
-		<script>
-		function openTown(townName) {
-		  var i;
-		  var x = document.getElementsByClassName("town");
-		  for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";  
-		  }
-		  document.getElementById(townName).style.display = "block";  
-		}
-		</script>
-	
-	
-</div></body></html>
+    
+    
+        
+<div id="s-m-t-tooltip" style="position: absolute; z-index: -1; left: 406px; top: 215px; opacity: 0;"><div style="width: 100%; height: 100%;">Singing In The Rain by Loona</div></div></body></html>
