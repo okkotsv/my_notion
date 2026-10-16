@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>love2love</title>
+    <style>
+        @font-face {
+            font-family: "msgothic";
+            src: url(https://file.garden/Z5Do5O7JvxCrm3fo/fonts/DotGothic16-Regular.ttf);
+            font-display: swap;
+          }
+          @font-face {
+            font-family: "angeris";
+            src: url(https://file.garden/Z5Do5O7JvxCrm3fo/fonts/AngerisDisco.otf);
+            font-display: swap
+          }
+          @font-face {
+            font-family: "freepixel";
+            src: url(https://file.garden/Z5Do5O7JvxCrm3fo/fonts/FreePixel.ttf);
+            font-display: swap;
+          }
+    
+          :root {
+            --pink-pale: #fff5f8;
+            --pink-light: #ffe4ef;
+            --pink-mid: #ffd0e4;
+            --pink-dark: #f8b8cf;
+            --accent: #ff9ec0;
+            --teal: #c07090;
+            --text: #a7828c;
+            --text-dark: #845757;
+            --muted: #aa8896;
+            --border-dot: #ffd8e9;
+            --border-soft: #ffcce0;
+            --bg: #fdf5f8;
+            --chrome-out: 0 2px 8px rgba(230, 150, 180, 0.18),
+              0 1px 2px rgba(248, 210, 230, 0.12);
+            --deep-in: inset 2px 2px 6px rgba(200, 120, 160, 0.15),
+              inset -1px -1px 4px rgba(255, 255, 255, 0.85);
+          }
+    
+          *,
+          *::before,
+          *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: url(https://file.garden/Z5Do5O7JvxCrm3fo/love2lovev3/cursor.cur),
+              auto !important;
+          }
+    
+          body {
+            font-family: "freepixel", "msgothic", sans-serif;
+            font-size: 10px;
+            color: var(--text);
+            background-color: #f8edf3;
+            background-image: url(https://file.garden/Z5Do5O7JvxCrm3fo/neocities/toro.gif),
+              radial-gradient(
+                ellipse at 30% 20%,
+                rgba(255, 210, 230, 0.35) 0,
+                transparent 60%
+              ),
+              radial-gradient(
+                ellipse at 80% 80%,
+                rgba(255, 230, 245, 0.3) 0,
+                transparent 55%
+              );
+            background-size: 15px, auto, auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 80px;
+          }
+    
+          @keyframes pageFadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(8px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+    
+          a {
+            color: var(--accent);
+            text-decoration: none;
+          }
+          a:hover {
+            color: var(--teal);
+            text-decoration: underline solid 1px;
+          }
+          a:visited {
+            color: var(--accent) !important;
+          }
+          a,
+          [href] {
+            cursor: url(https://file.garden/Z5Do5O7JvxCrm3fo/love2lovev3/Normal%20Select%206.cur),
+              pointer !important;
+          }
+    
+          .archive-wrap {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: pageFadeIn 0.5s ease-out both;
+          }
+    
+          .archive-nav {
+            font-size: 8px;
+            color: var(--muted);
+            letter-spacing: 1px;
+          }
+          .archive-nav a {
+            color: var(--accent);
+          }
+    
+          .archive-panel {
+            background: linear-gradient(180deg, #fff8fb, #fffbfd);
+            border: 1px solid var(--border-dot);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: var(--chrome-out), var(--deep-in);
+          }
+    
+          .archive-panel-title {
+            background: linear-gradient(180deg, #ffeaf4 0, #ffdcec 100%);
+            padding: 4px 9px;
+            font-family: "angeris";
+            font-size: 11px;
+            color: var(--teal);
+            letter-spacing: 2px;
+            font-style: italic;
+            border-bottom: 1px solid var(--border-dot);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+          }
+    
+          .archive-panel-title span {
+            font-family: "freepixel";
+            font-size: 7px;
+            color: var(--muted);
+            font-style: normal;
+            letter-spacing: 0;
+          }
+    
+          .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border-dot);
+            padding: 1px;
+          }
+    
+          .archive-item {
+            background: var(--pink-pale);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            cursor: zoom-in !important;
+            position: relative;
+          }
+    
+          .archive-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            transition:
+              transform 0.3s,
+              filter 0.3s;
+          }
+    
+          .archive-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1.06);
+          }
+    
+          .archive-item-label {
+            font-family: "freepixel";
+            font-size: 7px;
+            color: var(--muted);
+            text-align: center;
+            padding: 3px 2px 4px;
+            background: rgba(255, 240, 248, 0.8);
+            border-top: 1px solid var(--border-dot);
+            line-height: 1.4;
+          }
+    
+          .potm-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            background: rgba(248, 216, 232, 0.88);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+          }
+    
+          .potm-lightbox.open {
+            display: flex;
+          }
+    
+          .potm-lightbox img {
+            max-width: 88%;
+            max-height: 80vh;
+            border: 2px solid var(--border-soft);
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(200, 100, 150, 0.25);
+          }
+    
+          .lb-caption {
+            font-family: "angel";
+            font-size: 10px;
+            color: var(--teal);
+            letter-spacing: 2px;
+            font-style: italic;
+          }
+    
+          .lb-close {
+            font-family: "freepixel";
+            font-size: 8px;
+            color: var(--muted);
+            margin-top: 4px;
+          }
+    
+          .lb-close a {
+            color: var(--accent);
+          }
+    
+          .archive-footer {
+            text-align: center;
+            font-size: 7px;
+            color: var(--muted);
+            padding: 8px;
+            border-top: 1px dashed var(--border-dot);
+          }
+    </style>
+</head>
+
+<body>
+    <div class="archive-wrap">
+        <div class="archive-nav">
+
+
+        <div class="archive-panel">
+            <div class="archive-panel-title">
+                photo du mois ! <span>· archives</span>
+            </div>
+
+            <div class="archive-grid">
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0726.jpg" data-label="avril 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0826.jpg" alt="aout 2026">
+                    <div class="archive-item-label">aout. 2026</div>
+                </div> 
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0726.jpg" data-label="avril 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0726.jpg" alt="juillet 2026">
+                    <div class="archive-item-label">juillet. 2026</div>
+                </div>
+                
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0626.jpg" data-label="avril 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0626.jpg" alt="juin 2026">
+                    <div class="archive-item-label">juin. 2026</div>
+                </div>
+                
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/lol.png" data-label="avril 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/lol.png" alt="mai 2026">
+                    <div class="archive-item-label">mai. 2026</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/mdr" data-label="avril 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/mdr" alt="avril 2026">
+                    <div class="archive-item-label">avril. 2026</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0126.jpg" data-label="janvier 2026">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0126.jpg" alt="janvier 2026">
+                    <div class="archive-item-label">jan. 2026</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/000126.jpg" data-label="decembre 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/000126.jpg" alt="decembre 2025">
+                    <div class="archive-item-label">dec. 2025</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1225.jpg" data-label="decembre 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1225.jpg" alt="decembre 2025">
+                    <div class="archive-item-label">dec. 2025</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/001225.jpg" data-label="janvier 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/001225.jpg" alt="decembre 2025">
+                    <div class="archive-item-label">dec. 2025</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0012255.jpg" data-label="janvier 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/0012255.jpg" alt="decembre 2025">
+                    <div class="archive-item-label">dec. 2025</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1125.jpg" data-label="novembre 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1125.jpg" alt="novembre 2025">
+                    <div class="archive-item-label">nov. 2025</div>
+                </div>
+
+                <div class="archive-item" onclick="openLb(this)" data-src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1025.jpg" data-label="octobre 2025">
+                    <img src="https://file.garden/Z5Do5O7JvxCrm3fo/picoftm/1025.jpg" alt="octobre 2025">
+                    <div class="archive-item-label">oct. 2025</div>
+                </div>
+
+  
+
+      
+
+                </div>
+            </div>
+
+            <div class="archive-footer">
+                you + me = ♡
+            </div>
+        </div>
+    </div>
+
+    <div class="potm-lightbox" id="lb" onclick="closeLb()">
+        <img id="lb-img" src="" alt="">
+        <div class="lb-caption" id="lb-caption"></div>
+        <div class="lb-close">
+            <a href="#" onclick="closeLb(); return false;">[ fermer ✕ ]</a>
+        </div>
+    </div>
+
+    <script>
+        function openLb(el) {
+            document.getElementById("lb-img").src = el.dataset.src;
+            document.getElementById("lb-caption").textContent =
+              el.dataset.label || "";
+            document.getElementById("lb").classList.add("open");
+          }
+          function closeLb() {
+            document.getElementById("lb").classList.remove("open");
+          }
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeLb();
+          });
+    </script>
+
+
+</body></html>
