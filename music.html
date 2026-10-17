@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>love2love</title>
+    <style>
+    
+          body {
+            font-family: "freepixel", "msgothic", sans-serif;
+            font-size: 10px;
+            color: var(--text);
+            background-color: #191919;
+           
+              radial-gradient(
+                ellipse at 30% 20%,
+                rgba(255, 210, 230, 0.35) 0,
+                transparent 60%
+              ),
+              radial-gradient(
+                ellipse at 80% 80%,
+                rgba(255, 230, 245, 0.3) 0,
+                transparent 55%
+              );
+            background-size: 15px, auto, auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px 80px;
+          }
+    
+      .sotw-body {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 5px 6px;
+    background: linear-gradient(135deg, var(--pink-pale) 0, #fff 100%);
+}
+          @keyframes pageFadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(8px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+    
+          a {
+            color: var(--accent);
+            text-decoration: none;
+          }
+          a:hover {
+            color: var(--teal);
+            text-decoration: underline solid 1px;
+          }
+          a:visited {
+            color: var(--accent) !important;
+          }
+          a,
+          [href] {
+            cursor: url(https://file.garden/Z5Do5O7JvxCrm3fo/love2lovev3/Normal%20Select%206.cur),
+              pointer !important;
+          }
+  
+      .rightbar {
+    width: 148px;
+    flex-shrink: 0;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+      .box {
+    background: linear-gradient(180deg, #fff 0, #fffbfd 100%);
+    border: 1px solid var(--border-dot);
+    border-radius: 3px;
+    overflow: hidden;
+}
+      .widget-title {
+    background: linear-gradient(180deg, #ffeaf4 0, #ffdcec 100%);
+    padding: 3px 7px;
+    font-family: "angeris";
+    font-size: 6px;
+    color: #c07090;
+    letter-spacing: 2px;
+    font-style: italic;
+    border-bottom: 1px solid var(--border-dot);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+      .sotw-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+      .sotw-track {
+    font-family: "freepixel";
+    font-size: 8px;
+    color: #845757;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+      .sotw-artist {
+    font-family: "freepixel";
+    font-size: 7px;
+    color: #c07090;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+      .sotw-plays {
+    font-family: "freepixel";
+    font-size: 6px;
+    color: #aa8896;
+    letter-spacing: 0.5px;
+}
+      .sotw-art {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--border-dot);
+    border-radius: 2px;
+    background: var(--pink-light);
+    transition: transform .2s, box-shadow .2s;
+}
+      .sotw-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+      .right-random.box {
+    height: 84px;
+    overflow: hidden;
+    background: url(https://i.pinimg.com/originals/58/98/ca/5898ca65b93a6a00b8dcb0b14b7d1bc6.gif) center/cover;
+    color: transparent;
+}
+      .right-random.box {
+    height: 84px;
+    overflow: hidden;
+    background: url(https://i.pinimg.com/originals/58/98/ca/5898ca65b93a6a00b8dcb0b14b7d1bc6.gif) center/cover;
+    color: transparent;
+}
+      
+      </style>
+ 
+ 
+
+
+      <div class="rightbar">
+						<div class="box sotw-box">
+							<div class="widget-title">musique de la semaine ♪</div>
+							<div class="sotw-body">
+								<div class="sotw-info">
+									<div class="sotw-track" id="sotw-track">GRLS</div>
+									<div class="sotw-artist" id="sotw-artist">Tuide</div>
+									<div class="sotw-plays" id="sotw-plays">4 écoutes cette semaine</div>
+								</div>
+								<img src="https://lastfm-img.freetls.fastly.net/i/u/300x300/038132b93f90228b2f1eb73dd2b6d6ae.png" alt="" class="sotw-art" id="sotw-cover">
+							</div>
+						
