@@ -5,7 +5,7 @@
     <title>love2love</title>
     <style>
       
-    body {
+      body {
     font-family: "freepixel", "msgothic", sans-serif;
     font-size: var(--f-main);
     color: var(--text);
@@ -16,97 +16,118 @@
     align-items: center;
     padding: 30px 0 60px;
 }
-          @font-face {
+      @font-face {
             font-family: "freepixel";
             src: url(https://file.garden/Z5Do5O7JvxCrm3fo/fonts/FreePixel.ttf);
             font-display: swap;
           }
-    
-    
-          body {
-            font-family: "freepixel", "msgothic", "angeris", sans-serif;
-            font-size: 10px;
-            color: var(--text);
-            background-color: #191919;
-           
-              radial-gradient(
-                ellipse at 30% 20%,
-                rgba(255, 210, 230, 0.35) 0,
-                transparent 60%
-              ),
-              radial-gradient(
-                ellipse at 80% 80%,
-                rgba(255, 230, 245, 0.3) 0,
-                transparent 55%
-              );
-            background-size: 15px, auto, auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px 80px;
-          }
       
-     .mainarea {
-    flex: 1;
-    min-width: 0;
-    font-size: 10px;
+     :root {
+    --notebook-line: rgba(150, 150, 150, 0.66);
+}
+      :root {
+    --brown: #a8907a;
+    --offwhite: #fffaf0;
+    --border: #f0b5cd;
+}  
+   
+    
+      .main {
+    background-color: #f8edf3;
+    width: 1150px;
+    border: 30px solid;
+    border-image: url('https://kkul.love/media/borders/renda-bg.png') 18 repeat;
+    border-image-outset: 5px;
+    border-radius: 30px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-}
-      .welcome-box {
-    background: url() right bottom/150px no-repeat, linear-gradient(360deg, #ffffff 0%, #fffbfd 100%);
-    height: 145px;
-        width: 402px;
-    padding: 0;
-}
-      .welcome-inner {
-    padding: 5px 5px 0 5px;
-    display: flex;
-    gap: 2px;
-    align-items: flex-start;
-}
-      .fancam-wrapper {
-    display: block;
-    margin: 0 0 5px 0;
-    filter: drop-shadow(1px 1px 0 #fddce8) drop-shadow(-1px 1px 0 #fddce8) drop-shadow(0 2px 3px rgba(200, 130, 160, .3));
-}
-      .fancam {
-    width: 130px;
-    height: 130px;
-    margin-left: 0;
-    display: block;
-    object-fit: cover;
-    -webkit-mask-image: url(https://file.garden/Z5Do5O7JvxCrm3fo/masks/mvmask.png);
-    mask-image: url(https://file.garden/Z5Do5O7JvxCrm3fo/masks/mvmask.png);
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    filter: drop-shadow(-2px 0 white) drop-shadow(0 -2px white) drop-shadow(2px 2px 1px rgba(242, 215, 228, .45));
-}
-      .welcome-text {
-    flex: 1;
-    font-family: "freepixel";
-    font-size: 10px;
-    color: #c07090;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-      *, ::before, ::after {
+    padding: 5px;
+    gap: 15px;
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    cursor: url(https://file.garden/Z5Do5O7JvxCrm3fo/love2lovev3/cursor.cur), auto !important;
+    position: relative;
+    align-items: center;
+    text-align: center;
 }
+      #title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    font-family: 'freepixel';
+    font-size: 55px;
+    color: #8d7c76;
+    text-align: left;
+    margin-left: 85px;
+    margin-top: 18px;
+    white-space: nowrap;
+    text-shadow: 4px 4px 0px white,
+-4px -4px 0px white,
+4px -4px 0px white,
+-4px 4px 0px white;
+    pointer-events: none;
+    letter-spacing: -3px;
+}
+      .title-deco {
+    position: absolute;
+    left: 525px;
+    top: 60%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.3));
+}
+      #banner {
+    width: 460px;
+    height: 120px;
+    border: 1px #c1aeac solid;
+    border-radius: 10px;
+    background: url('https://kkul.love/media/gifs/chantilly.gif');
+    background-size: cover;
+    background-position: center;
+    image-rendering: auto;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+      .main-header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    flex-shrink: 0;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    background-image: radial-gradient(circle, white 19%, transparent 21%),
+radial-gradient(circle, white 19%, transparent 21%),
+linear-gradient(to right, #fff5fa 0%, #fff5fa 5%, #ffe4f0 100%);
+    /* background-size: 18px 18px, 18px 18px, 100% 100%; */
+    /* background-position: 0 0, 9px 9px, 0 0; */
+    /* border: 1px solid #eecad8; */
+    /* border-radius: 8px; */
+    /* box-shadow: inset 3px 3px 0px 0px rgba(255, 255, 255, 0.8),
+inset -3px -3px 0px 0px rgba(0, 0, 0, 0.05),
+0 4px 6px rgba(0, 0, 0, 0.05); */
+}
+    
+      
       
   </style>
-      <div class="mainarea">
-						<div class="box welcome-box">
-							<div class="welcome-inner">
-								<div class="fancam-wrapper"><img src="https://64.media.tumblr.com/4b8a3fbc5dd56411db4a1bb1a9e2d4fb/a79ca376abcb0d26-66/s640x960/c9ce6a3f4cb7d596cddc7475756c62089cad9ca1.gif" alt="" class="fancam"></div>
-								<div class="welcome-text">
-								<p>⠀⠀⠀⠀SWEET ♡ DEE  <strong>LOVE4EVER</strong>! <img src="https://64.media.tumblr.com/79738beafbaff3fb630db0faa78b1470/cae2d027b3f909d8-4c/s75x75_c1/fb60f5dfc90f2ae76c88003f9499be6d5bb69a6e.gif" style="height:12px"><br>Deandra loves Hogwarts, Kingdom Hearts, Mac and cheese, and seals! <img src="https://64.media.tumblr.com/8c7a21503d0293cf3a5fe83ae00bdb73/3376be1d98774c51-6e/s75x75_c1/4746a22fc6143fad1d9bb3d5ffa8ab09fc265347.gif" style="height:10px;margin-bottom:-2px"> her nickname Sweet Dee was given to her by her father due to her sweet personality... Hogwarts students started using it for her after the Triwizard Tournament, which she won.  <img src="https://64.media.tumblr.com/a8c4f251ebb7d39f1b8ee799fdc374fb/07d3e658f8efc25f-6f/s75x75_c1/8ebafd10f7d13ecb97c03a13f962396f4fd539ea.gif" style="height:11px;margin-bottom:-2px"> as a hufflepuff, Deandra values fair play. she believes this is what made 
-her win the tournament and made her become the hufflepuff princess of her generation! <img src="https://64.media.tumblr.com/727b519a2e644559e20994ab47a1fc41/0ed57e0a8d70951b-e0/s75x75_c1/d603dccb59dc0ce101a10c9333b29ee69c314e63.gif" style="height:12px;margin-bottom:-2px"><br>
-								</p></div>
-							
+  
+      <body ondragstart="return false" oncontextmenu="return false" class="page-home">
+
+  <div class="main">
+                 
+			<div class="main-header">
+    
+      </a>
+      <div id="title">Sweet Dee</div>
+
+      <img src="https://kkul.love/media/graphics/pngs/berry-chantilly.png" class="title-deco" title="made by me ♡">
+
+      <div id="banner">
+      </div>
+    </div>				
